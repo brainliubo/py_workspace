@@ -303,7 +303,10 @@ def process_check_file(flag = 1):
 cmd = CmdTest()
 cmd.cmdloop()
 
-
+'''下一步计划：
+1） 是否增加comment style
+2)  是否增加ignore file list
+3)  是否增加修改comment rate '''
 
 
 
