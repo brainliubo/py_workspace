@@ -1,0 +1,59 @@
+-------------------------------check *.h files-------------------------------------------------
+
+-------------------------------check *.c files-------------------------------------------------
+
+C:\py_workspace\teset\Fm1f_fun_l.c annotation_rate£º53.36%
+total_line_num:2666
+blank_line_num:329
+single_line_comment_num:3
+multi_line_comment_num:1244
+C:\py_workspace\teset\Fm1f_fun_tds.c annotation_rate£º60.94%
+total_line_num:1026
+blank_line_num:112
+single_line_comment_num:18
+multi_line_comment_num:539
+C:\py_workspace\teset\Fm1f_fun_w.c annotation_rate£º53.46%
+total_line_num:2007
+blank_line_num:185
+single_line_comment_num:2
+multi_line_comment_num:972
+C:\py_workspace\teset\Fm1f_fun_wifi.c annotation_rate£º33.66%
+total_line_num:1915
+blank_line_num:269
+single_line_comment_num:119
+multi_line_comment_num:435
+C:\py_workspace\teset\Fm1f_var_l.c annotation_rate£º1.06%
+total_line_num:4830
+blank_line_num:22
+single_line_comment_num:0
+multi_line_comment_num:51
+C:\py_workspace\teset\Fm1f_var_tds.c annotation_rate£º1.69%
+total_line_num:2027
+blank_line_num:15
+single_line_comment_num:0
+multi_line_comment_num:34
+C:\py_workspace\teset\Fm1f_var_w.c annotation_rate£º2.09%
+total_line_num:1263
+blank_line_num:20
+single_line_comment_num:0
+multi_line_comment_num:26
+C:\py_workspace\teset\Fm1f_var_wifi.c annotation_rate£º0.84%
+total_line_num:4453
+blank_line_num:27
+single_line_comment_num:0
+multi_line_comment_num:37
+C:\py_workspace\teset\Fm1f_var_wifi_gbk.c annotation_rate£º0.00%
+total_line_num:0
+blank_line_num:0
+single_line_comment_num:0
+multi_line_comment_num:0
+C:\py_workspace\teset\Tm1f_proc.c annotation_rate£º55.70%
+total_line_num:378
+blank_line_num:62
+single_line_comment_num:0
+multi_line_comment_num:176
+
+
+--check file completed: check 10 files  ,5 files failed ------------------
+
+

@@ -1,0 +1,24 @@
+-------------------------------check *.h files-------------------------------------------------
+
+-------------------------------check *.c files-------------------------------------------------
+
+C:\py_workspace\teset\Fm1f_var_l.c annotation_rate£º1.06%
+total line number---4830, blank line number---22,comments line number--51
+
+C:\py_workspace\teset\Fm1f_var_tds.c annotation_rate£º1.69%
+total line number---2027, blank line number---15,comments line number--34
+
+C:\py_workspace\teset\Fm1f_var_w.c annotation_rate£º2.09%
+total line number---1263, blank line number---20,comments line number--26
+
+C:\py_workspace\teset\Fm1f_var_wifi.c annotation_rate£º0.84%
+total line number---4453, blank line number---27,comments line number--37
+
+C:\py_workspace\teset\Fm1f_var_wifi_gbk.c annotation_rate£º0.00%
+total line number---0, blank line number---0,comments line number--0
+
+
+
+--check file completed: check 10 files  ,5 files failed ------------------
+
+
