@@ -306,7 +306,8 @@ cmd.cmdloop()
 '''下一步计划：
 1） 是否增加comment style
 2)  是否增加ignore file list
-3)  是否增加修改comment rate '''
+3)  是否增加修改comment rate
+4)  输出不合格的文件的owner '''
 
 
 
