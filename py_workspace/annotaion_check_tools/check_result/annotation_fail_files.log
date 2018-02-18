@@ -1,15 +1,16 @@
--------------------------------check *.h files-------------------------------------------------
-
 -------------------------------check *.c files-------------------------------------------------
 
 F:\git_repository\py_workspace\teset\kk\Fm1f_fun_l.c annotation_rate£º2.01%
 total line number---2667, blank line number---328,comments line number--47
 
-F:\git_repository\py_workspace\teset\src\Fm1f_fun_tds.c annotation_rate£º1.09%
-total line number---1027, blank line number---112,comments line number--10
+F:\git_repository\py_workspace\teset\src\Fm1f_fun_tds.c annotation_rate£º2.73%
+total line number---1028, blank line number---112,comments line number--25
 
-F:\git_repository\py_workspace\teset\src\Fm1f_fun_w.c annotation_rate£º0.82%
-total line number---2008, blank line number---185,comments line number--15
+F:\git_repository\py_workspace\teset\src\Fm1f_fun_w.c annotation_rate£º0.88%
+total line number---2010, blank line number---185,comments line number--16
+
+F:\git_repository\py_workspace\teset\src\Fm1f_fun_wifi.c annotation_rate£º2.06%
+total line number---1917, blank line number---269,comments line number--34
 
 F:\git_repository\py_workspace\teset\src\Fm1f_var_w.c annotation_rate£º0.08%
 total line number---1263, blank line number---20,comments line number--1
@@ -22,6 +23,6 @@ total line number---378, blank line number---62,comments line number--14
 
 
 
---check file completed: check 9 files  ,6 files failed,3 files ignored ------------------
+--check file completed: check 9 files  ,7 files failed,2 files ignored ------------------
 
 

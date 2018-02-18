@@ -1,5 +1,3 @@
--------------------------------check *.h files-------------------------------------------------
-
 -------------------------------check *.c files-------------------------------------------------
 
 F:\git_repository\py_workspace\teset\kk\Fm1f_fun_l.c annotation_rate£º2.01%
@@ -7,16 +5,21 @@ total_line_num:2667
 blank_line_num:328
 single_line_comment_num:2
 multi_line_comment_num:45
-F:\git_repository\py_workspace\teset\src\Fm1f_fun_tds.c annotation_rate£º1.09%
-total_line_num:1027
+F:\git_repository\py_workspace\teset\src\Fm1f_fun_tds.c annotation_rate£º2.73%
+total_line_num:1028
 blank_line_num:112
 single_line_comment_num:1
-multi_line_comment_num:9
-F:\git_repository\py_workspace\teset\src\Fm1f_fun_w.c annotation_rate£º0.82%
-total_line_num:2008
+multi_line_comment_num:24
+F:\git_repository\py_workspace\teset\src\Fm1f_fun_w.c annotation_rate£º0.88%
+total_line_num:2010
 blank_line_num:185
 single_line_comment_num:0
-multi_line_comment_num:15
+multi_line_comment_num:16
+F:\git_repository\py_workspace\teset\src\Fm1f_fun_wifi.c annotation_rate£º2.06%
+total_line_num:1917
+blank_line_num:269
+single_line_comment_num:2
+multi_line_comment_num:32
 F:\git_repository\py_workspace\teset\src\Fm1f_var_w.c annotation_rate£º0.08%
 total_line_num:1263
 blank_line_num:20
@@ -32,11 +35,8 @@ total_line_num:378
 blank_line_num:62
 single_line_comment_num:0
 multi_line_comment_num:14
-F:\git_repository\py_workspace\teset\src\Fm1f_fun_wifi.c
-F:\git_repository\py_workspace\teset\src\Fm1f_var_l.c
-F:\git_repository\py_workspace\teset\src\Fm1f_var_tds.c
 
 
---check file completed: check 9 files  ,6 files failed,3 files ignored ------------------
+--check file completed: check 9 files  ,7 files failed,2 files ignored ------------------
 
 

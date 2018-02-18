@@ -27,23 +27,28 @@ class CmdTest(Cmd):
         self.start = 0
         self.rate = 30
         
-        
+    
     def precmd(self,line):
         current_dir = os.getcwd()  # 获取check_tool的目录
-        result_dir = os.path.join(current_dir,"check_result/")
-        config_dir = os.path.join(current_dir,"check_config/")
-		
-        self.log_f = open(result_dir +"annotation_check_logs.log", "w")
-        self.w_f = open(result_dir + "annotation_check_results.log", "w")
-        self.fail_f = open(result_dir +"annotation_fail_files.log", "w")
-        self.ignore_f =  open(config_dir + "ignore_file_list.log", "r")
+        result_dir = os.path.join(current_dir, "check_result/")
+        config_dir = os.path.join(current_dir, "check_config/")
+        # 方式exit命令重新打开文件，刷空文件,在输入如下3种命令和空行命令时，可以处理文件
+        if (line.strip() in ["check all", "check c", "check h",""]):
+            self.log_f = open(result_dir +"annotation_check_logs.log", "w")
+            self.w_f = open(result_dir + "annotation_check_results.log", "w")
+            self.fail_f = open(result_dir +"annotation_fail_files.log", "w")
+            self.ignore_f =  open(config_dir + "ignore_file_list.log", "r")
+        if (line.strip() == ""):
+            print("the command is empty, will execute the last nonempty command")
         return Cmd.precmd(self, line)
-        
+    
     def postcmd(self,stop,line):
-        self.log_f.close()
-        self.w_f.close()
-        self.fail_f.close()
-        self.ignore_f.close()
+        #在输入如下3种命令和空行命令时，可以处理文件
+        if(line.strip() in ["check all","check c","check h",""]):
+            self.log_f.close()
+            self.w_f.close()
+            self.fail_f.close()
+            self.ignore_f.close()
         return Cmd.postcmd(self, stop, line)
     
     def help_doxygen(self):
@@ -68,6 +73,8 @@ class CmdTest(Cmd):
         print('''
 @version: 20180218
 @bugfix_0203: gbk codec can't decode error
+@bugfix_0218: exit command flush the log file because of the precomd command
+@bugfi_0218: input empty command ,execute the last nonempty command
 @cr_0205: print check result on cmd window
 @cr_0218: add ignore_file_list process
 ''')
@@ -125,8 +132,9 @@ class Annotation():
         fail_file_num = 0
         ignore_file_num = 0
         ignore_file_list = []
-        def __init__(self,file_name,total_line,blank_line,single_comment,multi_comment,comment_rate,*logs):
+        def __init__(self,file_owner,file_name,total_line,blank_line,single_comment,multi_comment,comment_rate,*logs):
             self.file_name = file_name
+            self.file_owner = file_owner # add file owner
             self.total_line_num = total_line
             self.blank_line_num = blank_line
             self.single_line_comment = single_comment
@@ -190,6 +198,7 @@ dir_f.close()
 
 
 # step3: core function ,找到总行数和空行，以及注释行，给出注释率
+# 处理文件时，要查找该文件的owner, owner 使用@author 进行赋值:
 def file_annotation_cal(file,cmd):
     total_line_num = 0
     space_line_num = 0
@@ -203,6 +212,7 @@ def file_annotation_cal(file,cmd):
     multi_line_record_dict = {}
     log_f = cmd.log_f
     fail_f = cmd.fail_f
+    file_owner = file.split("\\")[-1] #[-1]表示的是文件名
     try:
         with open(file, "r",encoding = "utf-8",errors = "ignore") as file_p:
             for line in file_p.readlines():
@@ -229,6 +239,13 @@ def file_annotation_cal(file,cmd):
                     multi_line_num += multi_line_end - multi_line_start + 1
                     multi_line_record_dict[multi_line_start] = multi_line_end
                     multi_line_start = -1
+                # 只在第一个多行注释中查找author，其他地方的author 认为无效
+                if ((line_strip.find("@author") != -1) and (len(multi_line_record_dict) == 0)):
+                    # 替换这一行中的空格和:, 防止不同写法
+                    line_find_owner = line_strip.replace(" ","")
+                    line_strip = line_find_owner.replace(":","")
+                    file_owner = line_strip.split("@author")[-1]
+                
     except Exception as err:
         print(file,str(err),file = log_f)
         pass
@@ -245,7 +262,8 @@ def file_annotation_cal(file,cmd):
         print(file,str(err),file = log_f)
         print(file,str(err),file = fail_f)
     finally:
-        return(Annotation(file,total_line_num,blank_line_num,single_line_num,multi_line_num,(100 * rate),single_line_record_list,multi_line_record_dict,blank_line_record_list))
+        
+        return(Annotation(file_owner,file,total_line_num,blank_line_num,single_line_num,multi_line_num,(100 * rate),single_line_record_list,multi_line_record_dict,blank_line_record_list))
         
         
         
@@ -280,10 +298,7 @@ def check_file(file_list,ignore_file_list,cmd):
             Annotation.ignore_file_num += 1
             Annotation.ignore_file_list.append(file)
     
-''' 
-cmd_win = Annotation_Check_Tool();
-cmd_win.cmdloop()
-'''
+
 # step4: 遍历所有.c和.h文件，输出不合格的文件路径到指定文件中。
 def process_check_file(flag = 1):
     w_f = cmd.w_f
