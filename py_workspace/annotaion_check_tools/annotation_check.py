@@ -10,7 +10,7 @@ class CmdTest(Cmd):
     intro = '''
 @brief：本exe主要功能为检测c文件和h头文件的注释率，输出不满足30%注释率的文件
 @author: brain.liu-刘波
-@version:V1.0.0_20180121
+@version:V1.0.1_20180131
 @email: brain.liu@spreadtrum.com
 
 @note：
@@ -58,6 +58,12 @@ class CmdTest(Cmd):
                                 check all: 检查.c文件和.h文件
                                 check c:   只检查.c文件
                                 check h:   只检查.h文件''')
+    def help_version(self):
+        print('''
+@version: 20180205
+@bugfix: gbk codec can't decode error
+@cr : print check result on cmd window
+''')
         
     def do_check(self, line):
         "do check file"
@@ -186,7 +192,7 @@ def file_annotation_cal(file,cmd):
     log_f = cmd.log_f
     fail_f = cmd.fail_f
     try:
-        with open(file, "r") as file_p:
+        with open(file, "r",encoding = "utf-8",errors = "ignore") as file_p:
             for line in file_p.readlines():
                 line_strip = line.strip()
                 total_line_num += 1
@@ -203,7 +209,7 @@ def file_annotation_cal(file,cmd):
                         multi_line_end = total_line_num
                         multi_line_num += 1
                         multi_line_record_dict[multi_line_start] = multi_line_end
-                        multi_line_start = -1
+                        multi_line_start = -1  #bug fix
                     else:
                         pass
                 if ((line_strip.find("*/") != -1) and (multi_line_start > 0)):
@@ -279,19 +285,19 @@ def process_check_file(flag = 1):
             print("-------------------------------check *.c files-------------------------------------------------\n",file = log_f)
             print("-------------------------------check *.c files-------------------------------------------------\n",file = fail_f)
             check_file(c_file_list,cmd)
-            print("check all files successful! please check the result in annotation_fail_files.log")
+            print("check all files successful!\ncheck %d files  ,%d files failed \nplease check the result in annotation_fail_files.log" % (Annotation.total_file_num, Annotation.fail_file_num))
     elif (flag == 2):
             print("-------------------------------check *.c files-------------------------------------------------\n",file = w_f)
             print("-------------------------------check *.c files-------------------------------------------------\n",file = log_f)
             print("-------------------------------check *.c files-------------------------------------------------\n",file = fail_f)
             check_file(c_file_list,cmd)
-            print("check *.c files successful! please check the result in annotation_fail_files.log")
+            print("check *.c files successful!\ncheck %d files  ,%d files failed \nplease check the result in annotation_fail_files.log" % (Annotation.total_file_num, Annotation.fail_file_num))
     elif (flag == 3):
             print("-------------------------------check *.h files-------------------------------------------------\n",file = w_f)
             print("-------------------------------check *.h files-------------------------------------------------\n",file = log_f)
             print("-------------------------------check *.h files-------------------------------------------------\n",file = fail_f)
             check_file(h_file_list,cmd)
-            print("check *.h files successful! please check the result in annotation_fail_files.log")
+            print("check *.h files successful!\ncheck %d files  ,%d files failed \nplease check the result in annotation_fail_files.log" % (Annotation.total_file_num, Annotation.fail_file_num))
     else:
         pass
     print("\n\n--check file completed: check %d files  ,%d files failed ------------------\n\n" % (Annotation.total_file_num, Annotation.fail_file_num),
@@ -303,11 +309,7 @@ def process_check_file(flag = 1):
 cmd = CmdTest()
 cmd.cmdloop()
 
-'''下一步计划：
-1） 是否增加comment style
-2)  是否增加ignore file list
-3)  是否增加修改comment rate
-4)  输出不合格的文件的owner '''
+
 
 
 

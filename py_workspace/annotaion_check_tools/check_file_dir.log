@@ -1,46 +1,51 @@
-C:\py_workspace
-['128_pm1309', 'annotaion_check_tools', 'teset']
-['annotaion_check_tools.zip']
-parent folder is:C:\py_workspace
-dirname is:128_pm1309
-parent folder is:C:\py_workspace
+F:\git_repository\py_workspace
+['annotaion_check_tools', 'teset']
+[]
+parent folder is:F:\git_repository\py_workspace
 dirname is:annotaion_check_tools
-parent folder is:C:\py_workspace
+parent folder is:F:\git_repository\py_workspace
 dirname is:teset
-filename with full path:C:\py_workspace\annotaion_check_tools.zip
-C:\py_workspace\128_pm1309
+F:\git_repository\py_workspace\annotaion_check_tools
+['check_config', 'check_result']
+['annotation_check.py', 'bug.txt', 'check_file_dir.log']
+parent folder is:F:\git_repository\py_workspace\annotaion_check_tools
+dirname is:check_config
+parent folder is:F:\git_repository\py_workspace\annotaion_check_tools
+dirname is:check_result
+filename with full path:F:\git_repository\py_workspace\annotaion_check_tools\annotation_check.py
+filename with full path:F:\git_repository\py_workspace\annotaion_check_tools\bug.txt
+filename with full path:F:\git_repository\py_workspace\annotaion_check_tools\check_file_dir.log
+F:\git_repository\py_workspace\annotaion_check_tools\check_config
 []
-['annotation_check.exe', 'annotation_check_logs.log', 'annotation_check_results.log', 'annotation_fail_files.log', 'python36.dll']
-filename with full path:C:\py_workspace\128_pm1309\annotation_check.exe
-filename with full path:C:\py_workspace\128_pm1309\annotation_check_logs.log
-filename with full path:C:\py_workspace\128_pm1309\annotation_check_results.log
-filename with full path:C:\py_workspace\128_pm1309\annotation_fail_files.log
-filename with full path:C:\py_workspace\128_pm1309\python36.dll
-C:\py_workspace\annotaion_check_tools
+['ignore_file_list.log']
+filename with full path:F:\git_repository\py_workspace\annotaion_check_tools\check_config\ignore_file_list.log
+F:\git_repository\py_workspace\annotaion_check_tools\check_result
 []
-['annotation_check.py', 'annotation_check_logs.log', 'annotation_check_results.log', 'annotation_fail_files.log', 'check_file_dir.log']
-filename with full path:C:\py_workspace\annotaion_check_tools\annotation_check.py
-filename with full path:C:\py_workspace\annotaion_check_tools\annotation_check_logs.log
-filename with full path:C:\py_workspace\annotaion_check_tools\annotation_check_results.log
-filename with full path:C:\py_workspace\annotaion_check_tools\annotation_fail_files.log
-filename with full path:C:\py_workspace\annotaion_check_tools\check_file_dir.log
-C:\py_workspace\teset
-['kk']
-['Fm1f_fun_l.c', 'Fm1f_fun_tds.c', 'Fm1f_fun_w.c', 'Fm1f_fun_wifi.c', 'Fm1f_var_l.c', 'Fm1f_var_tds.c', 'Fm1f_var_w.c', 'Fm1f_var_wifi.c', 'Fm1f_var_wifi_gbk.c', 'Tm1f_proc.c']
-parent folder is:C:\py_workspace\teset
+['annotation_check_logs.log', 'annotation_check_results.log', 'annotation_fail_files.log']
+filename with full path:F:\git_repository\py_workspace\annotaion_check_tools\check_result\annotation_check_logs.log
+filename with full path:F:\git_repository\py_workspace\annotaion_check_tools\check_result\annotation_check_results.log
+filename with full path:F:\git_repository\py_workspace\annotaion_check_tools\check_result\annotation_fail_files.log
+F:\git_repository\py_workspace\teset
+['kk', 'src']
+[]
+parent folder is:F:\git_repository\py_workspace\teset
 dirname is:kk
-filename with full path:C:\py_workspace\teset\Fm1f_fun_l.c
-filename with full path:C:\py_workspace\teset\Fm1f_fun_tds.c
-filename with full path:C:\py_workspace\teset\Fm1f_fun_w.c
-filename with full path:C:\py_workspace\teset\Fm1f_fun_wifi.c
-filename with full path:C:\py_workspace\teset\Fm1f_var_l.c
-filename with full path:C:\py_workspace\teset\Fm1f_var_tds.c
-filename with full path:C:\py_workspace\teset\Fm1f_var_w.c
-filename with full path:C:\py_workspace\teset\Fm1f_var_wifi.c
-filename with full path:C:\py_workspace\teset\Fm1f_var_wifi_gbk.c
-filename with full path:C:\py_workspace\teset\Tm1f_proc.c
-C:\py_workspace\teset\kk
+parent folder is:F:\git_repository\py_workspace\teset
+dirname is:src
+F:\git_repository\py_workspace\teset\kk
 []
-['a.txt', 'b.txt']
-filename with full path:C:\py_workspace\teset\kk\a.txt
-filename with full path:C:\py_workspace\teset\kk\b.txt
+['a.txt', 'b.txt', 'Fm1f_fun_l.c']
+filename with full path:F:\git_repository\py_workspace\teset\kk\a.txt
+filename with full path:F:\git_repository\py_workspace\teset\kk\b.txt
+filename with full path:F:\git_repository\py_workspace\teset\kk\Fm1f_fun_l.c
+F:\git_repository\py_workspace\teset\src
+[]
+['Fm1f_fun_tds.c', 'Fm1f_fun_w.c', 'Fm1f_fun_wifi.c', 'Fm1f_var_l.c', 'Fm1f_var_tds.c', 'Fm1f_var_w.c', 'Fm1f_var_wifi.c', 'Tm1f_proc.c']
+filename with full path:F:\git_repository\py_workspace\teset\src\Fm1f_fun_tds.c
+filename with full path:F:\git_repository\py_workspace\teset\src\Fm1f_fun_w.c
+filename with full path:F:\git_repository\py_workspace\teset\src\Fm1f_fun_wifi.c
+filename with full path:F:\git_repository\py_workspace\teset\src\Fm1f_var_l.c
+filename with full path:F:\git_repository\py_workspace\teset\src\Fm1f_var_tds.c
+filename with full path:F:\git_repository\py_workspace\teset\src\Fm1f_var_w.c
+filename with full path:F:\git_repository\py_workspace\teset\src\Fm1f_var_wifi.c
+filename with full path:F:\git_repository\py_workspace\teset\src\Tm1f_proc.c
