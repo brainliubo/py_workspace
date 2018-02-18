@@ -1,1 +1,4 @@
-﻿
+﻿start to configure the ignore file, please input the file name(each line input 1 file)-----please don't delete this line 
+fm1f_fun_wifi.c
+fm1f_var_l.c
+

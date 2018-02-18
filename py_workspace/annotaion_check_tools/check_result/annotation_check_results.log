@@ -49,6 +49,6 @@ single_line_comment_num:0
 multi_line_comment_num:14
 
 
---check file completed: check 9 files  ,9 files failed ------------------
+--check file completed: check 9 files  ,9 files failed,0 files ignored ------------------
 
 

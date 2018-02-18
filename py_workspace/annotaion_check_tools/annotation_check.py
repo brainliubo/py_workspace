@@ -3,7 +3,7 @@
 from cmd import Cmd
 import sys
 import os
-import chardet
+#import chardet
 
 
 class CmdTest(Cmd):
@@ -29,15 +29,21 @@ class CmdTest(Cmd):
         
         
     def precmd(self,line):
-        self.log_f = open("annotation_check_logs.log", "w")
-        self.w_f = open("annotation_check_results.log", "w")
-        self.fail_f = open("annotation_fail_files.log", "w")
+        current_dir = os.getcwd()  # 获取check_tool的目录
+        result_dir = os.path.join(current_dir,"check_result/")
+        config_dir = os.path.join(current_dir,"check_config/")
+		
+        self.log_f = open(result_dir +"annotation_check_logs.log", "w")
+        self.w_f = open(result_dir + "annotation_check_results.log", "w")
+        self.fail_f = open(result_dir +"annotation_fail_files.log", "w")
+        self.ignore_f =  open(config_dir + "ignore_file_list.log", "r")
         return Cmd.precmd(self, line)
         
     def postcmd(self,stop,line):
         self.log_f.close()
         self.w_f.close()
         self.fail_f.close()
+        self.ignore_f.close()
         return Cmd.postcmd(self, stop, line)
     
     def help_doxygen(self):
@@ -60,9 +66,10 @@ class CmdTest(Cmd):
                                 check h:   只检查.h文件''')
     def help_version(self):
         print('''
-@version: 20180205
-@bugfix: gbk codec can't decode error
-@cr : print check result on cmd window
+@version: 20180218
+@bugfix_0203: gbk codec can't decode error
+@cr_0205: print check result on cmd window
+@cr_0218: add ignore_file_list process 
 ''')
         
     def do_check(self, line):
@@ -116,6 +123,7 @@ class Annotation():
         total_file_num = 0 #class property
         pass_file_num = 0
         fail_file_num = 0
+        ignore_file_num = 0
         def __init__(self,file_name,total_line,blank_line,single_comment,multi_comment,comment_rate,*logs):
             self.file_name = file_name
             self.total_line_num = total_line
@@ -148,33 +156,36 @@ for parent, dirnames, filenames in os.walk(rootdir):
         print("filename with full path:" + os.path.join(parent, filename),file = dir_f)
         file_list.append(os.path.join(parent, filename))
 
-dir_f.close()
+
+def ignore_file_find(in_file):
+    '''find the ignore_files in ignore_file_list.log'''
+    ignore_list = []
+    with open(in_file, "r", encoding="utf-8", errors="ignore") as ig_f:
+        for ignore_line in ig_f.readlines():
+            ignore_strip = ignore_line.strip()
+            if(ignore_strip.__len__()!= 0):
+                ignore_list.append(ignore_strip)
+    return ignore_list
+
+
 
 # setp2:找到.c 或者.h文件，形成新的list
 c_file_list = []
 h_file_list = []
-for file in file_list:
-    if file.endswith(".c"):
-        c_file_list.append(file)
-    if file.endswith(".h"):
-        h_file_list.append(file)
+ignore_file_list = []
+print(file_list,file = dir_f)
+for in_file in file_list:
+    if in_file.endswith(".c"):
+        c_file_list.append(in_file)
+    if in_file.endswith(".h"):
+        h_file_list.append(in_file)
+	#python中，if判断句中，不为0的任何数都为真，-1也表示真，所以一定要明确指定判断条件
+    if (in_file.find("ignore_file_list") != -1):
+        ignore_file_list = ignore_file_find(in_file)
+#print(ignore_file_list,file = dir_f)
+dir_f.close()
 
 
-'''
-def convertEncoding(to_encode,old_filepath):
-    f1=file(old_filepath)
-    text=f1.read()
-    f1.closed
-    enc=chardet.detect(text)
-    print(enc)
-    if enc['encoding']  == None :
-        return
-    text=text.decode(enc['encoding']).encode(to_encode)
-    f2=file(old_filepath,'w')
-    f2.write(text)
-    f2.close()
-
-'''
 
 
 # step3: core function ,找到总行数和空行，以及注释行，给出注释率
@@ -237,31 +248,34 @@ def file_annotation_cal(file,cmd):
         
         
         
-def check_file(file_list,cmd):
+def check_file(file_list,ignore_file_list,cmd):
     w_f = cmd.w_f
     log_f = cmd.log_f
     fail_f = cmd.fail_f
     
     for file in file_list:
-        anno_var = file_annotation_cal(file,cmd)
         Annotation.total_file_num += 1
+        if file not in ignore_file_list:
+            anno_var = file_annotation_cal(file,cmd)
+            
         
-        print(anno_var.file_name, "annotation_rate：%.2f%%" % anno_var.annotation_rate, file=w_f)
-        print("total_line_num:%d" % anno_var.total_line_num, file=w_f)
-        print("blank_line_num:%d" % anno_var.blank_line_num, file=w_f)
-        print("single_line_comment_num:%d" % anno_var.single_line_comment, file=w_f)
-        print("multi_line_comment_num:%d" % anno_var.multi_line_comment, file=w_f)
+            print(anno_var.file_name, "annotation_rate：%.2f%%" % anno_var.annotation_rate, file=w_f)
+            print("total_line_num:%d" % anno_var.total_line_num, file=w_f)
+            print("blank_line_num:%d" % anno_var.blank_line_num, file=w_f)
+            print("single_line_comment_num:%d" % anno_var.single_line_comment, file=w_f)
+            print("multi_line_comment_num:%d" % anno_var.multi_line_comment, file=w_f)
         
-        # output log
-        print(anno_var.file_name, file=log_f)
-        print(anno_var.logs, file=log_f)
+            # output log
+            print(anno_var.file_name, file=log_f)
+            print(anno_var.logs, file=log_f)
         
-        # output fail
-        if (anno_var.annotation_rate < 30):
-            print(anno_var.file_name, "annotation_rate：%.2f%%" % anno_var.annotation_rate, file=fail_f)
-            print("total line number---%s, blank line number---%s,comments line number--%s\n" % (anno_var.total_line_num ,anno_var.blank_line_num,anno_var.single_line_comment +  anno_var.multi_line_comment), file=fail_f)
+            # output fail
+            if (anno_var.annotation_rate < 30):
+                print(anno_var.file_name, "annotation_rate：%.2f%%" % anno_var.annotation_rate, file=fail_f)
+                print("total line number---%s, blank line number---%s,comments line number--%s\n" % (anno_var.total_line_num ,anno_var.blank_line_num,anno_var.single_line_comment +  anno_var.multi_line_comment), file=fail_f)
             Annotation.fail_file_num += 1
-    
+        else:
+            Annotation.ignore_file_num += 1
     
 ''' 
 cmd_win = Annotation_Check_Tool();
@@ -274,36 +288,36 @@ def process_check_file(flag = 1):
     fail_f = cmd.fail_f
     Annotation.total_file_num = 0
     Annotation.fail_file_num = 0
-    
+    Annotation.ignore_file_num = 0
     if(flag == 1):
             print("-------------------------------check *.h files-------------------------------------------------\n",file = w_f)
             print("-------------------------------check *.h files-------------------------------------------------\n",file = log_f)
             print("-------------------------------check *.h files-------------------------------------------------\n",file = fail_f)
-            check_file(h_file_list,cmd)
+            check_file(h_file_list,ignore_file_list,cmd)
 
             print("-------------------------------check *.c files-------------------------------------------------\n",file = w_f)
             print("-------------------------------check *.c files-------------------------------------------------\n",file = log_f)
             print("-------------------------------check *.c files-------------------------------------------------\n",file = fail_f)
-            check_file(c_file_list,cmd)
-            print("check all files successful!\ncheck %d files  ,%d files failed \nplease check the result in annotation_fail_files.log" % (Annotation.total_file_num, Annotation.fail_file_num))
+            check_file(c_file_list,ignore_file_list,cmd)
+            print("check all files successful!\nchecked %d files,%d files failed,%d files ignored\nplease check the result in annotation_fail_files.log" % (Annotation.total_file_num,Annotation.fail_file_num,Annotation.ignore_file_num))
     elif (flag == 2):
             print("-------------------------------check *.c files-------------------------------------------------\n",file = w_f)
             print("-------------------------------check *.c files-------------------------------------------------\n",file = log_f)
             print("-------------------------------check *.c files-------------------------------------------------\n",file = fail_f)
-            check_file(c_file_list,cmd)
-            print("check *.c files successful!\ncheck %d files  ,%d files failed \nplease check the result in annotation_fail_files.log" % (Annotation.total_file_num, Annotation.fail_file_num))
+            check_file(c_file_list,ignore_file_list,cmd)
+            print("check *.c files successful!\nchecked %d files,%d files failed,%d files ignored\nplease check the result in annotation_fail_files.log" % (Annotation.total_file_num,Annotation.fail_file_num,Annotation.ignore_file_num))
     elif (flag == 3):
             print("-------------------------------check *.h files-------------------------------------------------\n",file = w_f)
             print("-------------------------------check *.h files-------------------------------------------------\n",file = log_f)
             print("-------------------------------check *.h files-------------------------------------------------\n",file = fail_f)
-            check_file(h_file_list,cmd)
-            print("check *.h files successful!\ncheck %d files  ,%d files failed \nplease check the result in annotation_fail_files.log" % (Annotation.total_file_num, Annotation.fail_file_num))
+            check_file(h_file_list,ignore_file_list,cmd)
+            print("check *.h files successful!\nchecked %d files,%d files failed,%d files ignored\nplease check the result in annotation_fail_files.log" % (Annotation.total_file_num,Annotation.fail_file_num,Annotation.ignore_file_num))
     else:
         pass
-    print("\n\n--check file completed: check %d files  ,%d files failed ------------------\n\n" % (Annotation.total_file_num, Annotation.fail_file_num),
+    print("\n\n--check file completed: check %d files  ,%d files failed,%d files ignored ------------------\n\n" % (Annotation.total_file_num, Annotation.fail_file_num,Annotation.ignore_file_num),
  file = w_f)
-    print("\n\n--check file completed: check %d files  ,%d files failed ------------------\n\n" % (Annotation.total_file_num, Annotation.fail_file_num), file=log_f)
-    print("\n\n--check file completed: check %d files  ,%d files failed ------------------\n\n" % (Annotation.total_file_num, Annotation.fail_file_num), file=fail_f)
+    print("\n\n--check file completed: check %d files  ,%d files failed,%d files ignored ------------------\n\n" % (Annotation.total_file_num, Annotation.fail_file_num,Annotation.ignore_file_num), file=log_f)
+    print("\n\n--check file completed: check %d files  ,%d files failed,%d files ignored ------------------\n\n" % (Annotation.total_file_num, Annotation.fail_file_num,Annotation.ignore_file_num), file=fail_f)
     
     
 cmd = CmdTest()
