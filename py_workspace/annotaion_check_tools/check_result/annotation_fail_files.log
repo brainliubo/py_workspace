@@ -1,28 +1,19 @@
--------------------------------check *.c files-------------------------------------------------
+               annotation rate threshold:30.00%,belowing files are the unqualified files
 
-F:\git_repository\py_workspace\teset\kk\Fm1f_fun_l.c annotation_rate£º2.01%
-total line number---2667, blank line number---328,comments line number--47
+        Owner             FileName            TotalLine         CommentLine         CommentRate     
+     Fm1f_fun_l.c          Fm1f_fun_l.c              2667                   47                   2.0094057289439933
+    brain.liu0@pea        Fm1f_fun_tds.c             1028                   25                   2.7292576419213974
+      brain.liu1           Fm1f_fun_w.c              2010                   16                   0.8767123287671232
+      brain.liu2         Fm1f_fun_wifi.c            1917                   34                   2.063106796116505
+     Fm1f_var_w.c          Fm1f_var_w.c              1263                   1                   0.08045052292839903
+   Fm1f_var_wifi.c       Fm1f_var_wifi.c            4453                   18                   0.4066877541798464
+     Tm1f_proc.c           Tm1f_proc.c               378                   14                   4.430379746835443
 
-F:\git_repository\py_workspace\teset\src\Fm1f_fun_tds.c annotation_rate£º2.73%
-total line number---1028, blank line number---112,comments line number--25
-
-F:\git_repository\py_workspace\teset\src\Fm1f_fun_w.c annotation_rate£º0.88%
-total line number---2010, blank line number---185,comments line number--16
-
-F:\git_repository\py_workspace\teset\src\Fm1f_fun_wifi.c annotation_rate£º2.06%
-total line number---1917, blank line number---269,comments line number--34
-
-F:\git_repository\py_workspace\teset\src\Fm1f_var_w.c annotation_rate£º0.08%
-total line number---1263, blank line number---20,comments line number--1
-
-F:\git_repository\py_workspace\teset\src\Fm1f_var_wifi.c annotation_rate£º0.41%
-total line number---4453, blank line number---27,comments line number--18
-
-F:\git_repository\py_workspace\teset\src\Tm1f_proc.c annotation_rate£º4.43%
-total line number---378, blank line number---62,comments line number--14
+--------------------------------------------------ignore files list--------------------------------------------------
+F:\git_repository\py_workspace\teset\src\Fm1f_var_l.c
+F:\git_repository\py_workspace\teset\src\Fm1f_var_tds.c
 
 
-
---check file completed: check 9 files  ,7 files failed,2 files ignored ------------------
+--check file completed: check 9 files  ,7 files failed,2 files ignored     ------------------
 
 

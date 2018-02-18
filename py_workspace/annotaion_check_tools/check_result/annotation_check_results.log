@@ -1,4 +1,6 @@
--------------------------------check *.c files-------------------------------------------------
+-------------------------------check *.h files-------------------------------------------------
+
+-------------------------------            check *.c files-------------------------------------------------
 
 F:\git_repository\py_workspace\teset\kk\Fm1f_fun_l.c annotation_rate£º2.01%
 total_line_num:2667
@@ -37,6 +39,6 @@ single_line_comment_num:0
 multi_line_comment_num:14
 
 
---check file completed: check 9 files  ,7 files failed,2 files ignored ------------------
+--check file completed: check 9 files  ,7 files failed,2 files ignored------------------
 
 
