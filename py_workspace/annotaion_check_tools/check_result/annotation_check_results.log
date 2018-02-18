@@ -17,21 +17,6 @@ total_line_num:2008
 blank_line_num:185
 single_line_comment_num:0
 multi_line_comment_num:15
-F:\git_repository\py_workspace\teset\src\Fm1f_fun_wifi.c annotation_rate£º0.97%
-total_line_num:1916
-blank_line_num:269
-single_line_comment_num:2
-multi_line_comment_num:14
-F:\git_repository\py_workspace\teset\src\Fm1f_var_l.c annotation_rate£º0.40%
-total_line_num:4830
-blank_line_num:22
-single_line_comment_num:1
-multi_line_comment_num:18
-F:\git_repository\py_workspace\teset\src\Fm1f_var_tds.c annotation_rate£º0.05%
-total_line_num:2027
-blank_line_num:15
-single_line_comment_num:0
-multi_line_comment_num:1
 F:\git_repository\py_workspace\teset\src\Fm1f_var_w.c annotation_rate£º0.08%
 total_line_num:1263
 blank_line_num:20
@@ -47,8 +32,11 @@ total_line_num:378
 blank_line_num:62
 single_line_comment_num:0
 multi_line_comment_num:14
+F:\git_repository\py_workspace\teset\src\Fm1f_fun_wifi.c
+F:\git_repository\py_workspace\teset\src\Fm1f_var_l.c
+F:\git_repository\py_workspace\teset\src\Fm1f_var_tds.c
 
 
---check file completed: check 9 files  ,9 files failed,0 files ignored ------------------
+--check file completed: check 9 files  ,6 files failed,3 files ignored ------------------
 
 

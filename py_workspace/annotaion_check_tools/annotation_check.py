@@ -69,7 +69,7 @@ class CmdTest(Cmd):
 @version: 20180218
 @bugfix_0203: gbk codec can't decode error
 @cr_0205: print check result on cmd window
-@cr_0218: add ignore_file_list process 
+@cr_0218: add ignore_file_list process
 ''')
         
     def do_check(self, line):
@@ -124,6 +124,7 @@ class Annotation():
         pass_file_num = 0
         fail_file_num = 0
         ignore_file_num = 0
+        ignore_file_list = []
         def __init__(self,file_name,total_line,blank_line,single_comment,multi_comment,comment_rate,*logs):
             self.file_name = file_name
             self.total_line_num = total_line
@@ -252,10 +253,11 @@ def check_file(file_list,ignore_file_list,cmd):
     w_f = cmd.w_f
     log_f = cmd.log_f
     fail_f = cmd.fail_f
-    
-    for file in file_list:
+    path_list = []
+    for file in file_list: #file 是绝对路径
         Annotation.total_file_num += 1
-        if file not in ignore_file_list:
+        path_list = file.split("\\") #path_list[-1]表示的是文件名
+        if path_list[-1] not in ignore_file_list:
             anno_var = file_annotation_cal(file,cmd)
             
         
@@ -276,6 +278,7 @@ def check_file(file_list,ignore_file_list,cmd):
             Annotation.fail_file_num += 1
         else:
             Annotation.ignore_file_num += 1
+            Annotation.ignore_file_list.append(file)
     
 ''' 
 cmd_win = Annotation_Check_Tool();
@@ -299,6 +302,7 @@ def process_check_file(flag = 1):
             print("-------------------------------check *.c files-------------------------------------------------\n",file = log_f)
             print("-------------------------------check *.c files-------------------------------------------------\n",file = fail_f)
             check_file(c_file_list,ignore_file_list,cmd)
+            
             print("check all files successful!\nchecked %d files,%d files failed,%d files ignored\nplease check the result in annotation_fail_files.log" % (Annotation.total_file_num,Annotation.fail_file_num,Annotation.ignore_file_num))
     elif (flag == 2):
             print("-------------------------------check *.c files-------------------------------------------------\n",file = w_f)
