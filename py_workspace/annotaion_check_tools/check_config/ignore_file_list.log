@@ -1,4 +1,4 @@
 ﻿start to configure the ignore file, please input the file name(each line input 1 file) warnning: this line must be exist,otherwise the ignore function will be wrong 
-Fm1f_var_l.c
+Fm1f_fun_wifi.c
 
 Fm1f_var_tds.c

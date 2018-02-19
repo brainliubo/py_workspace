@@ -3,8 +3,8 @@
 -------------------------------            check *.c files-------------------------------------------------
 
 F:\git_repository\py_workspace\teset\kk\Fm1f_fun_l.c annotation_rate£º2.01%
-total_line_num:2667
-blank_line_num:328
+total_line_num:2665
+blank_line_num:326
 single_line_comment_num:2
 multi_line_comment_num:45
 F:\git_repository\py_workspace\teset\src\Fm1f_fun_tds.c annotation_rate£º2.73%
@@ -17,11 +17,11 @@ total_line_num:2010
 blank_line_num:185
 single_line_comment_num:0
 multi_line_comment_num:16
-F:\git_repository\py_workspace\teset\src\Fm1f_fun_wifi.c annotation_rate£º2.06%
-total_line_num:1917
-blank_line_num:269
-single_line_comment_num:2
-multi_line_comment_num:32
+F:\git_repository\py_workspace\teset\src\Fm1f_var_l.c annotation_rate£º0.40%
+total_line_num:4830
+blank_line_num:22
+single_line_comment_num:1
+multi_line_comment_num:18
 F:\git_repository\py_workspace\teset\src\Fm1f_var_w.c annotation_rate£º0.08%
 total_line_num:1263
 blank_line_num:20

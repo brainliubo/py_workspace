@@ -38,11 +38,13 @@ class CmdTest(Cmd):
             self.w_f = open(result_dir + "annotation_check_results.log", "w")
             self.fail_f = open(result_dir +"annotation_fail_files.log", "w")
             self.ignore_f =  open(config_dir + "ignore_file_list.log", "r")
-            print(" "*15 +"annotation rate threshold:%.2f%%,belowing files are the unqualified files\n" \
+            print(" "*15 +"annotation rate threshold:%.2f%%,belowing files are the unqualified files" \
                     %self.rate,file=self.fail_f)
+            print("---------------------------------------------unqualified files list-------------------------------------------------- ",file = self.fail_f)
+            print("注：若文件头部注释区域无author定义，owner 显示为文件名\n", file=self.fail_f)
             # 格式化输出结果
-            print(" " * 8 + "Owner" + " " * 7 + " " * 6 +"FileName" + " " * 6 + " " * 6 + "TotalLine" + \
-                  " " * 5 + " " * 4 + "CommentLine" + " " * 5 +" " * 4 + "CommentRate" + " " * 5, \
+            print(" " * 12 + "Owner" + " " * 24 +"FileName" + " " * 21 + "TotalLines" + \
+                  " " * 10 + "BlankLines" + " " * 9 + "CommentLines" + " " * 9 +"CommentRate", \
                  file=self.fail_f)
         if (line.strip() == ""):
             print("the command is empty, will execute the last nonempty command")
@@ -59,16 +61,16 @@ class CmdTest(Cmd):
     
     def help_doxygen(self):
         print('''
-如下风格为本exe可检查的注释风格(不符合风格的注释将不计入注释率计算)：
+如下风格为本工具可检查的注释风格(不符合风格的注释将视为无效注释)：
                 
     文件头注释示范:    /** @file..注释....*/
 
     函数头注释示范：   /*!......注释......*/
                          
-    单行注释  示范:    /*!<.....注释......*/
-                       //!<.....注释......*/
+    单行注释  示范:   /*!<.....注释......*/
+                   //!<.....注释......
                                          
-    多行注释  示范:    /*!......注释......*/''')
+    多行注释  示范:   /*!......注释......*/''')
         
     def help_check(self):
         print('''check ---------检测文件，有三种命令:
@@ -129,7 +131,7 @@ class CmdTest(Cmd):
         sys.exit()
         
 
-
+#注释检测类定义
 class Annotation():
         total_file_num = 0 #class property
         pass_file_num = 0
@@ -269,7 +271,7 @@ def file_annotation_cal(file,cmd):
         valid_line = total_line_num - blank_line_num
         anno_line = multi_line_num + single_line_num
         if(valid_line != 0): #防止空文件
-            rate = anno_line / valid_line
+            rate = round(100 * (anno_line / valid_line),4)
         else:
             rate = 0
     except Exception as err:
@@ -277,7 +279,7 @@ def file_annotation_cal(file,cmd):
         print(file,str(err),file = fail_f)
     finally:
         
-        return(Annotation(file_owner,file_name_only,file,total_line_num,blank_line_num,single_line_num,multi_line_num,(100 * rate),single_line_record_list,multi_line_record_dict,blank_line_record_list))
+        return(Annotation(file_owner,file_name_only,file,total_line_num,blank_line_num,single_line_num,multi_line_num,(rate),single_line_record_list,multi_line_record_dict,blank_line_record_list))
         
         
         
@@ -306,17 +308,21 @@ def check_file(file_list,ignore_file_list,cmd):
             # output fail
             if (anno_var.annotation_rate < cmd.rate):
                 Annotation.fail_file_num += 1 #失败文件计数
-                space_num0 = int(10 - len(anno_var.file_owner)/2)
-                space_num1 = int(20 - (len(anno_var.file_owner) + len(anno_var.file_name))/2)
-                space_num2 = int(20 - (len(anno_var.file_name) + len(anno_var.total_line_num.__str__()))/2)
-                space_num3 = int(20 -  (len(anno_var.total_line_num.__str__()) + \
-                                len((anno_var.total_commment).__str__()))/2)
+                #这里的15/20 要跟上述的"owner,filename,totallines"的间隔匹配
+                space_num0 = int(15 - len(anno_var.file_owner)//2)
+                space_num1 = int(30 - (len(anno_var.file_owner) + len(anno_var.file_name))//2)
+                space_num2 = int(30 - (len(anno_var.file_name) + len(anno_var.total_line_num.__str__()))//2)
+                space_num3 = int(20 - (len(str(anno_var.total_line_num)) + len(str(anno_var.blank_line_num)))//2)
+                space_num4 = int(20 -  (len(anno_var.blank_line_num.__str__()) + \
+                                len((anno_var.total_commment).__str__()))//2)
                 #annotation_rate's length fixed to 4 for simplify
-                space_num4 = int(20 - (len((anno_var.total_commment).__str__()) + 4)/2)
+                space_num5 = int(20 - (len((anno_var.total_commment).__str__()) \
+                                       + len(str(anno_var.annotation_rate)))//2)
                                  
-                print(" "*space_num0,anno_var.file_owner," " * space_num1,anno_var.file_name,\
-                      " "* space_num2,anno_var.total_line_num," "* space_num3,\
-                      (anno_var.total_commment)," "* space_num4, anno_var.annotation_rate,\
+                print(" "*space_num0 + anno_var.file_owner+" " * space_num1 + anno_var.file_name+\
+                      " "* space_num2+ str(anno_var.total_line_num) +" "* space_num3 + \
+                      str(anno_var.blank_line_num)+" "*space_num4+
+                      str(anno_var.total_commment)+" "* space_num5 + str(anno_var.annotation_rate),\
                       file = fail_f)
         else: #ignore file
             Annotation.ignore_file_num += 1
@@ -376,7 +382,7 @@ def process_check_file(flag = 1):
             check_file(h_file_list,ignore_file_list,cmd)
 
             # output the ignore file list
-            print("\n" + "-" * 50 + "ignore files list" + "-" * 50, file=fail_f)
+            print("\n" + "-" * 56 + "ignore files list" + "-" * 56, file=fail_f)
             for line in Annotation.ignore_file_list:
                 print(line, file=fail_f)
                 
