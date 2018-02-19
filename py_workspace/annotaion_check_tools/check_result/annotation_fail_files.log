@@ -3,19 +3,10 @@
 注：若文件头部注释区域无author定义，owner 显示为文件名
 
             Owner                        FileName                     TotalLines          BlankLines         CommentLines         CommentRate
-         Fm1f_fun_l.c                  Fm1f_fun_l.c                      2665                 326                  47                2.0094
-        brain.liu0@pea                Fm1f_fun_tds.c                     1028                 112                  25                2.7293
-          brain.liu1                   Fm1f_fun_w.c                      2010                 185                  16                0.8767
-         Fm1f_var_l.c                  Fm1f_var_l.c                      4830                 22                  19                0.3952
-         Fm1f_var_w.c                  Fm1f_var_w.c                      1263                 20                   1                 0.0805
-        Fm1f_var_wifi.c               Fm1f_var_wifi.c                     4453                 27                  18                0.4067
-          Tm1f_proc.c                   Tm1f_proc.c                       378                  62                  14                4.4304
 
---------------------------------------------------ignore files list--------------------------------------------------
-F:\git_repository\py_workspace\teset\src\Fm1f_fun_wifi.c
-F:\git_repository\py_workspace\teset\src\Fm1f_var_tds.c
+--------------------------------------------------------ignore files list--------------------------------------------------------
 
 
---check file completed: check 9 files  ,7 files failed,2 files ignored     ------------------
+--check file completed: check 0 files  ,0 files failed,0 files ignored     ------------------
 
 

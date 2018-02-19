@@ -357,7 +357,7 @@ def process_check_file(flag = 1):
             for line in Annotation.ignore_file_list:
                 print(line,file = fail_f)
             
-            print("check all files successful!\nchecked %d files,%d files failed,%d files ignored\nplease check the result in annotation_fail_files.log"
+            print("check all files successful!\nchecked %d files,%d files failed,%d files ignored\nplease check the result in check_result\\annotation_fail_files.log\n"
                   % (Annotation.total_file_num,Annotation.fail_file_num,Annotation.ignore_file_num))
     elif (flag == 2):
             print("-------------------------------"
@@ -372,7 +372,7 @@ def process_check_file(flag = 1):
             for line in Annotation.ignore_file_list:
                 print(line, file=fail_f)
                 
-            print("check *.c files successful!\nchecked %d files,%d files failed,%d files ignored\nplease check the result in annotation_fail_files.log" \
+            print("check *.c files successful!\nchecked %d files,%d files failed,%d files ignored\nplease check the result in acheck_result\\annotation_fail_files.log\n" \
                   % (Annotation.total_file_num,Annotation.fail_file_num,Annotation.ignore_file_num))
     elif (flag == 3):
             print("-------------------------------"
@@ -387,7 +387,7 @@ def process_check_file(flag = 1):
                 print(line, file=fail_f)
                 
                 
-            print("check *.h files successful!\nchecked %d files,%d files failed,%d files ignored\nplease check the result in annotation_fail_files.log" \
+            print("check *.h files successful!\nchecked %d files,%d files failed,%d files ignored\nplease check the result in check_result\\annotation_fail_files.log\n" \
                   % (Annotation.total_file_num,Annotation.fail_file_num,Annotation.ignore_file_num))
     else:
         pass
