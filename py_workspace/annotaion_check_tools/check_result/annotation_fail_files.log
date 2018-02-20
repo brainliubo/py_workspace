@@ -1,12 +1,18 @@
-               annotation rate threshold:30.00%,belowing files are the unqualified files
+               annotation rate threshold:1.00%,belowing files are the unqualified files
 ---------------------------------------------unqualified files list-------------------------------------------------- 
 注：若文件头部注释区域无author定义，owner 显示为文件名
 
             Owner                        FileName                     TotalLines          BlankLines         CommentLines         CommentRate
+          brain.liu1                   Fm1f_fun_w.c                      2010                 185                  16                 0.877%
+         Fm1f_var_l.c                  Fm1f_var_l.c                      4830                 22                  19                 0.395%
+         Fm1f_var_w.c                  Fm1f_var_w.c                      1263                 20                   1                  0.08%
+        Fm1f_var_wifi.c               Fm1f_var_wifi.c                     4453                 27                  18                 0.407%
 
---------------------------------------------------------ignore files list--------------------------------------------------------
+--------------------------------------------------ignore files list--------------------------------------------------
+F:\git_repository\py_workspace\teset\src\Fm1f_fun_wifi.c
+F:\git_repository\py_workspace\teset\src\Fm1f_var_tds.c
 
 
---check file completed: check 0 files  ,0 files failed,0 files ignored     ------------------
+--check file completed: check 9 files  ,4 files failed,2 files ignored     ------------------
 
 

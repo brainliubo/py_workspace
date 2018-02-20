@@ -25,7 +25,7 @@ class CmdTest(Cmd):
     def __init__(self):  # 初始基础类方法
         Cmd.__init__(self)
         self.start = 0
-        self.rate = 30
+        self.rate = 30 #注释率门限，以百分比为单位
         
     
     def precmd(self,line):
@@ -271,7 +271,7 @@ def file_annotation_cal(file,cmd):
         valid_line = total_line_num - blank_line_num
         anno_line = multi_line_num + single_line_num
         if(valid_line != 0): #防止空文件
-            rate = round(100 * (anno_line / valid_line),4)
+            rate = round(100 * (anno_line / valid_line),3) #保留小数位设置
         else:
             rate = 0
     except Exception as err:
@@ -305,7 +305,7 @@ def check_file(file_list,ignore_file_list,cmd):
             print(anno_var.file_name_abspath, file=log_f)
             print(anno_var.logs, file=log_f)
         
-            # output fail
+            # output fail file 
             if (anno_var.annotation_rate < cmd.rate):
                 Annotation.fail_file_num += 1 #失败文件计数
                 #这里的15/20 要跟上述的"owner,filename,totallines"的间隔匹配
@@ -322,7 +322,7 @@ def check_file(file_list,ignore_file_list,cmd):
                 print(" "*space_num0 + anno_var.file_owner+" " * space_num1 + anno_var.file_name+\
                       " "* space_num2+ str(anno_var.total_line_num) +" "* space_num3 + \
                       str(anno_var.blank_line_num)+" "*space_num4+
-                      str(anno_var.total_commment)+" "* space_num5 + str(anno_var.annotation_rate),\
+                      str(anno_var.total_commment)+" "* space_num5 + str(anno_var.annotation_rate)+"%",\
                       file = fail_f)
         else: #ignore file
             Annotation.ignore_file_num += 1
