@@ -17,6 +17,11 @@ total_line_num:2010
 blank_line_num:185
 single_line_comment_num:0
 multi_line_comment_num:16
+F:\git_repository\py_workspace\teset\src\Fm1f_fun_wifi.c annotation_rate£º2.06%
+total_line_num:1917
+blank_line_num:269
+single_line_comment_num:2
+multi_line_comment_num:32
 F:\git_repository\py_workspace\teset\src\Fm1f_var_l.c annotation_rate£º0.40%
 total_line_num:4830
 blank_line_num:22
@@ -39,6 +44,6 @@ single_line_comment_num:0
 multi_line_comment_num:14
 
 
---check file completed: check 9 files  ,4 files failed,2 files ignored------------------
+--check file completed: check 9 files  ,8 files failed,1 files ignored------------------
 
 

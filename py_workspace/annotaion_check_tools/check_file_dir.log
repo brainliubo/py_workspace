@@ -1,22 +1,27 @@
 F:\git_repository\py_workspace
-['annotaion_check_tools', 'exe', 'teset']
+['annotaion_check_tools', 'exe', 'exe_color', 'teset']
 []
 parent folder is:F:\git_repository\py_workspace
 dirname is:annotaion_check_tools
 parent folder is:F:\git_repository\py_workspace
 dirname is:exe
 parent folder is:F:\git_repository\py_workspace
+dirname is:exe_color
+parent folder is:F:\git_repository\py_workspace
 dirname is:teset
 F:\git_repository\py_workspace\annotaion_check_tools
-['check_config', 'check_result']
-['annotation_check.py', 'bug.txt', 'check_file_dir.log']
+['check_config', 'check_result', '__pycache__']
+['annotation_check.py', 'bug.txt', 'check_file_dir.log', 'test_cmd_color.py']
 parent folder is:F:\git_repository\py_workspace\annotaion_check_tools
 dirname is:check_config
 parent folder is:F:\git_repository\py_workspace\annotaion_check_tools
 dirname is:check_result
+parent folder is:F:\git_repository\py_workspace\annotaion_check_tools
+dirname is:__pycache__
 filename with full path:F:\git_repository\py_workspace\annotaion_check_tools\annotation_check.py
 filename with full path:F:\git_repository\py_workspace\annotaion_check_tools\bug.txt
 filename with full path:F:\git_repository\py_workspace\annotaion_check_tools\check_file_dir.log
+filename with full path:F:\git_repository\py_workspace\annotaion_check_tools\test_cmd_color.py
 F:\git_repository\py_workspace\annotaion_check_tools\check_config
 []
 ['ignore_file_list.log']
@@ -27,6 +32,10 @@ F:\git_repository\py_workspace\annotaion_check_tools\check_result
 filename with full path:F:\git_repository\py_workspace\annotaion_check_tools\check_result\annotation_check_logs.log
 filename with full path:F:\git_repository\py_workspace\annotaion_check_tools\check_result\annotation_check_results.log
 filename with full path:F:\git_repository\py_workspace\annotaion_check_tools\check_result\annotation_fail_files.log
+F:\git_repository\py_workspace\annotaion_check_tools\__pycache__
+[]
+['test_cmd_color.cpython-36.pyc']
+filename with full path:F:\git_repository\py_workspace\annotaion_check_tools\__pycache__\test_cmd_color.cpython-36.pyc
 F:\git_repository\py_workspace\exe
 ['check_config', 'check_result', 'lib']
 ['annotation_check.exe', 'check_file_dir.log', 'python36.dll']
@@ -50,10 +59,12 @@ filename with full path:F:\git_repository\py_workspace\exe\check_result\annotati
 filename with full path:F:\git_repository\py_workspace\exe\check_result\annotation_check_results.log
 filename with full path:F:\git_repository\py_workspace\exe\check_result\annotation_fail_files.log
 F:\git_repository\py_workspace\exe\lib
-['collections', 'email', 'encodings', 'html', 'http', 'importlib', 'logging', 'pydoc_data', 'unittest', 'urllib', 'xml']
-['library.zip', 'pyexpat.pyd', 'select.pyd', 'unicodedata.pyd', '_bz2.pyd', '_hashlib.pyd', '_lzma.pyd', '_socket.pyd', '_ssl.pyd']
+['collections', 'ctypes', 'email', 'encodings', 'html', 'http', 'importlib', 'logging', 'pydoc_data', 'unittest', 'urllib', 'xml']
+['library.zip', 'pyexpat.pyd', 'select.pyd', 'unicodedata.pyd', '_bz2.pyd', '_ctypes.pyd', '_hashlib.pyd', '_lzma.pyd', '_socket.pyd', '_ssl.pyd']
 parent folder is:F:\git_repository\py_workspace\exe\lib
 dirname is:collections
+parent folder is:F:\git_repository\py_workspace\exe\lib
+dirname is:ctypes
 parent folder is:F:\git_repository\py_workspace\exe\lib
 dirname is:email
 parent folder is:F:\git_repository\py_workspace\exe\lib
@@ -79,6 +90,7 @@ filename with full path:F:\git_repository\py_workspace\exe\lib\pyexpat.pyd
 filename with full path:F:\git_repository\py_workspace\exe\lib\select.pyd
 filename with full path:F:\git_repository\py_workspace\exe\lib\unicodedata.pyd
 filename with full path:F:\git_repository\py_workspace\exe\lib\_bz2.pyd
+filename with full path:F:\git_repository\py_workspace\exe\lib\_ctypes.pyd
 filename with full path:F:\git_repository\py_workspace\exe\lib\_hashlib.pyd
 filename with full path:F:\git_repository\py_workspace\exe\lib\_lzma.pyd
 filename with full path:F:\git_repository\py_workspace\exe\lib\_socket.pyd
@@ -88,6 +100,24 @@ F:\git_repository\py_workspace\exe\lib\collections
 ['abc.pyc', '__init__.pyc']
 filename with full path:F:\git_repository\py_workspace\exe\lib\collections\abc.pyc
 filename with full path:F:\git_repository\py_workspace\exe\lib\collections\__init__.pyc
+F:\git_repository\py_workspace\exe\lib\ctypes
+['macholib', 'test']
+['_endian.pyc', '__init__.pyc']
+parent folder is:F:\git_repository\py_workspace\exe\lib\ctypes
+dirname is:macholib
+parent folder is:F:\git_repository\py_workspace\exe\lib\ctypes
+dirname is:test
+filename with full path:F:\git_repository\py_workspace\exe\lib\ctypes\_endian.pyc
+filename with full path:F:\git_repository\py_workspace\exe\lib\ctypes\__init__.pyc
+F:\git_repository\py_workspace\exe\lib\ctypes\macholib
+[]
+['fetch_macholib', 'fetch_macholib.bat', 'README.ctypes']
+filename with full path:F:\git_repository\py_workspace\exe\lib\ctypes\macholib\fetch_macholib
+filename with full path:F:\git_repository\py_workspace\exe\lib\ctypes\macholib\fetch_macholib.bat
+filename with full path:F:\git_repository\py_workspace\exe\lib\ctypes\macholib\README.ctypes
+F:\git_repository\py_workspace\exe\lib\ctypes\test
+[]
+[]
 F:\git_repository\py_workspace\exe\lib\email
 ['mime']
 ['architecture.rst', 'base64mime.pyc', 'charset.pyc', 'contentmanager.pyc', 'encoders.pyc', 'errors.pyc', 'feedparser.pyc', 'generator.pyc', 'header.pyc', 'headerregistry.pyc', 'iterators.pyc', 'message.pyc', 'parser.pyc', 'policy.pyc', 'quoprimime.pyc', 'utils.pyc', '_encoded_words.pyc', '_header_value_parser.pyc', '_parseaddr.pyc', '_policybase.pyc', '__init__.pyc']
@@ -326,6 +356,313 @@ F:\git_repository\py_workspace\exe\lib\xml\parsers
 filename with full path:F:\git_repository\py_workspace\exe\lib\xml\parsers\expat.pyc
 filename with full path:F:\git_repository\py_workspace\exe\lib\xml\parsers\__init__.pyc
 F:\git_repository\py_workspace\exe\lib\xml\sax
+[]
+[]
+F:\git_repository\py_workspace\exe_color
+['lib']
+['python36.dll', 'test_cmd_color.exe']
+parent folder is:F:\git_repository\py_workspace\exe_color
+dirname is:lib
+filename with full path:F:\git_repository\py_workspace\exe_color\python36.dll
+filename with full path:F:\git_repository\py_workspace\exe_color\test_cmd_color.exe
+F:\git_repository\py_workspace\exe_color\lib
+['collections', 'ctypes', 'email', 'encodings', 'html', 'http', 'importlib', 'logging', 'pydoc_data', 'unittest', 'urllib', 'xml']
+['library.zip', 'pyexpat.pyd', 'select.pyd', 'unicodedata.pyd', '_bz2.pyd', '_ctypes.pyd', '_hashlib.pyd', '_lzma.pyd', '_socket.pyd', '_ssl.pyd']
+parent folder is:F:\git_repository\py_workspace\exe_color\lib
+dirname is:collections
+parent folder is:F:\git_repository\py_workspace\exe_color\lib
+dirname is:ctypes
+parent folder is:F:\git_repository\py_workspace\exe_color\lib
+dirname is:email
+parent folder is:F:\git_repository\py_workspace\exe_color\lib
+dirname is:encodings
+parent folder is:F:\git_repository\py_workspace\exe_color\lib
+dirname is:html
+parent folder is:F:\git_repository\py_workspace\exe_color\lib
+dirname is:http
+parent folder is:F:\git_repository\py_workspace\exe_color\lib
+dirname is:importlib
+parent folder is:F:\git_repository\py_workspace\exe_color\lib
+dirname is:logging
+parent folder is:F:\git_repository\py_workspace\exe_color\lib
+dirname is:pydoc_data
+parent folder is:F:\git_repository\py_workspace\exe_color\lib
+dirname is:unittest
+parent folder is:F:\git_repository\py_workspace\exe_color\lib
+dirname is:urllib
+parent folder is:F:\git_repository\py_workspace\exe_color\lib
+dirname is:xml
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\library.zip
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\pyexpat.pyd
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\select.pyd
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\unicodedata.pyd
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\_bz2.pyd
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\_ctypes.pyd
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\_hashlib.pyd
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\_lzma.pyd
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\_socket.pyd
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\_ssl.pyd
+F:\git_repository\py_workspace\exe_color\lib\collections
+[]
+['abc.pyc', '__init__.pyc']
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\collections\abc.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\collections\__init__.pyc
+F:\git_repository\py_workspace\exe_color\lib\ctypes
+['macholib', 'test']
+['_endian.pyc', '__init__.pyc']
+parent folder is:F:\git_repository\py_workspace\exe_color\lib\ctypes
+dirname is:macholib
+parent folder is:F:\git_repository\py_workspace\exe_color\lib\ctypes
+dirname is:test
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\ctypes\_endian.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\ctypes\__init__.pyc
+F:\git_repository\py_workspace\exe_color\lib\ctypes\macholib
+[]
+['fetch_macholib', 'fetch_macholib.bat', 'README.ctypes']
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\ctypes\macholib\fetch_macholib
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\ctypes\macholib\fetch_macholib.bat
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\ctypes\macholib\README.ctypes
+F:\git_repository\py_workspace\exe_color\lib\ctypes\test
+[]
+[]
+F:\git_repository\py_workspace\exe_color\lib\email
+['mime']
+['architecture.rst', 'base64mime.pyc', 'charset.pyc', 'contentmanager.pyc', 'encoders.pyc', 'errors.pyc', 'feedparser.pyc', 'generator.pyc', 'header.pyc', 'headerregistry.pyc', 'iterators.pyc', 'message.pyc', 'parser.pyc', 'policy.pyc', 'quoprimime.pyc', 'utils.pyc', '_encoded_words.pyc', '_header_value_parser.pyc', '_parseaddr.pyc', '_policybase.pyc', '__init__.pyc']
+parent folder is:F:\git_repository\py_workspace\exe_color\lib\email
+dirname is:mime
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\email\architecture.rst
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\email\base64mime.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\email\charset.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\email\contentmanager.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\email\encoders.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\email\errors.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\email\feedparser.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\email\generator.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\email\header.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\email\headerregistry.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\email\iterators.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\email\message.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\email\parser.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\email\policy.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\email\quoprimime.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\email\utils.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\email\_encoded_words.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\email\_header_value_parser.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\email\_parseaddr.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\email\_policybase.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\email\__init__.pyc
+F:\git_repository\py_workspace\exe_color\lib\email\mime
+[]
+[]
+F:\git_repository\py_workspace\exe_color\lib\encodings
+[]
+['aliases.pyc', 'ascii.pyc', 'base64_codec.pyc', 'big5.pyc', 'big5hkscs.pyc', 'bz2_codec.pyc', 'charmap.pyc', 'cp037.pyc', 'cp1006.pyc', 'cp1026.pyc', 'cp1125.pyc', 'cp1140.pyc', 'cp1250.pyc', 'cp1251.pyc', 'cp1252.pyc', 'cp1253.pyc', 'cp1254.pyc', 'cp1255.pyc', 'cp1256.pyc', 'cp1257.pyc', 'cp1258.pyc', 'cp273.pyc', 'cp424.pyc', 'cp437.pyc', 'cp500.pyc', 'cp65001.pyc', 'cp720.pyc', 'cp737.pyc', 'cp775.pyc', 'cp850.pyc', 'cp852.pyc', 'cp855.pyc', 'cp856.pyc', 'cp857.pyc', 'cp858.pyc', 'cp860.pyc', 'cp861.pyc', 'cp862.pyc', 'cp863.pyc', 'cp864.pyc', 'cp865.pyc', 'cp866.pyc', 'cp869.pyc', 'cp874.pyc', 'cp875.pyc', 'cp932.pyc', 'cp949.pyc', 'cp950.pyc', 'euc_jisx0213.pyc', 'euc_jis_2004.pyc', 'euc_jp.pyc', 'euc_kr.pyc', 'gb18030.pyc', 'gb2312.pyc', 'gbk.pyc', 'hex_codec.pyc', 'hp_roman8.pyc', 'hz.pyc', 'idna.pyc', 'iso2022_jp.pyc', 'iso2022_jp_1.pyc', 'iso2022_jp_2.pyc', 'iso2022_jp_2004.pyc', 'iso2022_jp_3.pyc', 'iso2022_jp_ext.pyc', 'iso2022_kr.pyc', 'iso8859_1.pyc', 'iso8859_10.pyc', 'iso8859_11.pyc', 'iso8859_13.pyc', 'iso8859_14.pyc', 'iso8859_15.pyc', 'iso8859_16.pyc', 'iso8859_2.pyc', 'iso8859_3.pyc', 'iso8859_4.pyc', 'iso8859_5.pyc', 'iso8859_6.pyc', 'iso8859_7.pyc', 'iso8859_8.pyc', 'iso8859_9.pyc', 'johab.pyc', 'koi8_r.pyc', 'koi8_t.pyc', 'koi8_u.pyc', 'kz1048.pyc', 'latin_1.pyc', 'mac_arabic.pyc', 'mac_centeuro.pyc', 'mac_croatian.pyc', 'mac_cyrillic.pyc', 'mac_farsi.pyc', 'mac_greek.pyc', 'mac_iceland.pyc', 'mac_latin2.pyc', 'mac_roman.pyc', 'mac_romanian.pyc', 'mac_turkish.pyc', 'mbcs.pyc', 'oem.pyc', 'palmos.pyc', 'ptcp154.pyc', 'punycode.pyc', 'quopri_codec.pyc', 'raw_unicode_escape.pyc', 'rot_13.pyc', 'shift_jis.pyc', 'shift_jisx0213.pyc', 'shift_jis_2004.pyc', 'tis_620.pyc', 'undefined.pyc', 'unicode_escape.pyc', 'unicode_internal.pyc', 'utf_16.pyc', 'utf_16_be.pyc', 'utf_16_le.pyc', 'utf_32.pyc', 'utf_32_be.pyc', 'utf_32_le.pyc', 'utf_7.pyc', 'utf_8.pyc', 'utf_8_sig.pyc', 'uu_codec.pyc', 'zlib_codec.pyc', '__init__.pyc']
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\aliases.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\ascii.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\base64_codec.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\big5.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\big5hkscs.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\bz2_codec.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\charmap.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp037.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp1006.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp1026.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp1125.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp1140.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp1250.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp1251.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp1252.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp1253.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp1254.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp1255.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp1256.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp1257.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp1258.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp273.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp424.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp437.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp500.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp65001.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp720.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp737.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp775.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp850.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp852.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp855.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp856.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp857.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp858.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp860.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp861.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp862.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp863.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp864.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp865.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp866.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp869.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp874.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp875.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp932.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp949.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\cp950.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\euc_jisx0213.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\euc_jis_2004.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\euc_jp.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\euc_kr.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\gb18030.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\gb2312.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\gbk.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\hex_codec.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\hp_roman8.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\hz.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\idna.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\iso2022_jp.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\iso2022_jp_1.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\iso2022_jp_2.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\iso2022_jp_2004.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\iso2022_jp_3.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\iso2022_jp_ext.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\iso2022_kr.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\iso8859_1.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\iso8859_10.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\iso8859_11.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\iso8859_13.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\iso8859_14.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\iso8859_15.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\iso8859_16.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\iso8859_2.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\iso8859_3.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\iso8859_4.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\iso8859_5.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\iso8859_6.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\iso8859_7.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\iso8859_8.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\iso8859_9.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\johab.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\koi8_r.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\koi8_t.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\koi8_u.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\kz1048.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\latin_1.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\mac_arabic.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\mac_centeuro.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\mac_croatian.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\mac_cyrillic.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\mac_farsi.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\mac_greek.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\mac_iceland.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\mac_latin2.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\mac_roman.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\mac_romanian.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\mac_turkish.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\mbcs.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\oem.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\palmos.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\ptcp154.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\punycode.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\quopri_codec.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\raw_unicode_escape.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\rot_13.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\shift_jis.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\shift_jisx0213.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\shift_jis_2004.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\tis_620.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\undefined.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\unicode_escape.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\unicode_internal.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\utf_16.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\utf_16_be.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\utf_16_le.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\utf_32.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\utf_32_be.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\utf_32_le.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\utf_7.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\utf_8.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\utf_8_sig.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\uu_codec.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\zlib_codec.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\encodings\__init__.pyc
+F:\git_repository\py_workspace\exe_color\lib\html
+[]
+['entities.pyc', '__init__.pyc']
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\html\entities.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\html\__init__.pyc
+F:\git_repository\py_workspace\exe_color\lib\http
+[]
+['client.pyc', 'server.pyc', '__init__.pyc']
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\http\client.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\http\server.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\http\__init__.pyc
+F:\git_repository\py_workspace\exe_color\lib\importlib
+[]
+['abc.pyc', 'machinery.pyc', 'util.pyc', '_bootstrap.pyc', '_bootstrap_external.pyc', '__init__.pyc']
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\importlib\abc.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\importlib\machinery.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\importlib\util.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\importlib\_bootstrap.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\importlib\_bootstrap_external.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\importlib\__init__.pyc
+F:\git_repository\py_workspace\exe_color\lib\logging
+[]
+['__init__.pyc']
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\logging\__init__.pyc
+F:\git_repository\py_workspace\exe_color\lib\pydoc_data
+[]
+['topics.pyc', '_pydoc.css', '__init__.pyc']
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\pydoc_data\topics.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\pydoc_data\_pydoc.css
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\pydoc_data\__init__.pyc
+F:\git_repository\py_workspace\exe_color\lib\unittest
+['test']
+['case.pyc', 'loader.pyc', 'main.pyc', 'result.pyc', 'runner.pyc', 'signals.pyc', 'suite.pyc', 'util.pyc', '__init__.pyc']
+parent folder is:F:\git_repository\py_workspace\exe_color\lib\unittest
+dirname is:test
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\unittest\case.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\unittest\loader.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\unittest\main.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\unittest\result.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\unittest\runner.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\unittest\signals.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\unittest\suite.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\unittest\util.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\unittest\__init__.pyc
+F:\git_repository\py_workspace\exe_color\lib\unittest\test
+['testmock']
+[]
+parent folder is:F:\git_repository\py_workspace\exe_color\lib\unittest\test
+dirname is:testmock
+F:\git_repository\py_workspace\exe_color\lib\unittest\test\testmock
+[]
+[]
+F:\git_repository\py_workspace\exe_color\lib\urllib
+[]
+['parse.pyc', '__init__.pyc']
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\urllib\parse.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\urllib\__init__.pyc
+F:\git_repository\py_workspace\exe_color\lib\xml
+['dom', 'etree', 'parsers', 'sax']
+['__init__.pyc']
+parent folder is:F:\git_repository\py_workspace\exe_color\lib\xml
+dirname is:dom
+parent folder is:F:\git_repository\py_workspace\exe_color\lib\xml
+dirname is:etree
+parent folder is:F:\git_repository\py_workspace\exe_color\lib\xml
+dirname is:parsers
+parent folder is:F:\git_repository\py_workspace\exe_color\lib\xml
+dirname is:sax
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\xml\__init__.pyc
+F:\git_repository\py_workspace\exe_color\lib\xml\dom
+[]
+[]
+F:\git_repository\py_workspace\exe_color\lib\xml\etree
+[]
+[]
+F:\git_repository\py_workspace\exe_color\lib\xml\parsers
+[]
+['expat.pyc', '__init__.pyc']
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\xml\parsers\expat.pyc
+filename with full path:F:\git_repository\py_workspace\exe_color\lib\xml\parsers\__init__.pyc
+F:\git_repository\py_workspace\exe_color\lib\xml\sax
 []
 []
 F:\git_repository\py_workspace\teset

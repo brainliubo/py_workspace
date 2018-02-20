@@ -3,7 +3,7 @@
 from cmd import Cmd
 import sys
 import os
-#import chardet
+import test_cmd_color
 
 
 class CmdTest(Cmd):
@@ -61,7 +61,7 @@ class CmdTest(Cmd):
     
     def help_doxygen(self):
         print('''
-如下风格为本工具可检查的注释风格(不符合风格的注释将视为无效注释)：
+    如下风格为本工具可检查的注释风格(不符合风格的注释将视为无效注释)：
                 
     文件头注释示范:    /** @file..注释....*/
 
@@ -70,21 +70,22 @@ class CmdTest(Cmd):
     单行注释  示范:   /*!<.....注释......*/
                    //!<.....注释......
                                          
-    多行注释  示范:   /*!......注释......*/''')
+    多行注释  示范:   /*!......注释......*/\n''')
         
     def help_check(self):
         print('''check ---------检测文件，有三种命令:
-                                check all: 检查.c文件和.h文件
-                                check c:   只检查.c文件
-                                check h:   只检查.h文件''')
+                            check all: 检查.c文件和.h文件
+                            check c:   只检查.c文件
+                            check h:   只检查.h文件\n''')
     def help_version(self):
-        print('''
-@version: 20180218
+        print('''@version: 20180220
+@cr_0220: add different color setting for character
 @bugfix_0203: gbk codec can't decode error
 @bugfix_0218: exit command flush the log file because of the precomd command
 @bugfi_0218: input empty command ,execute the last nonempty command
 @cr_0205: print check result on cmd window
 @cr_0218: add ignore_file_list process
+
 ''')
         
     def do_check(self, line):
@@ -97,7 +98,7 @@ class CmdTest(Cmd):
             self.start = 3
         else:
             self.start = 0
-            print("请输入正确指令，或者exit退出")
+            print("请输入正确指令，或者exit退出\n")
 
             
         try:
@@ -124,12 +125,13 @@ class CmdTest(Cmd):
     '''
    
     def help_exit(self):  # 以help_*开头的为帮助
-        print("exit--------输入exit退出程序")
+        print("exit--------输入exit退出程序\n")
     
     def do_exit(self, line):  # 以do_*开头为命令
         print("Exit:", line)
         sys.exit()
         
+
 
 #注释检测类定义
 class Annotation():
@@ -352,12 +354,7 @@ def process_check_file(flag = 1):
             
             check_file(c_file_list,ignore_file_list,cmd)
 
-            # output the ignore file list
-            print("\n"+ "-" * 50 + "ignore files list" + "-" * 50, file=fail_f)
-            for line in Annotation.ignore_file_list:
-                print(line,file = fail_f)
-            
-            print("check all files successful!\nchecked %d files,%d files failed,%d files ignored\nplease check the result in check_result\\annotation_fail_files.log\n"
+            test_cmd_color.printYellow("check all files successful!\nchecked %d files,%d files failed,%d files ignored\nplease check the result in check_result\\annotation_fail_files.log\n\n"
                   % (Annotation.total_file_num,Annotation.fail_file_num,Annotation.ignore_file_num))
     elif (flag == 2):
             print("-------------------------------"
@@ -367,12 +364,7 @@ def process_check_file(flag = 1):
 
             check_file(c_file_list,ignore_file_list,cmd)
 
-            # output the ignore file list
-            print("\n" + "-" * 50 + "ignore files list" + "-" * 50, file=fail_f)
-            for line in Annotation.ignore_file_list:
-                print(line, file=fail_f)
-                
-            print("check *.c files successful!\nchecked %d files,%d files failed,%d files ignored\nplease check the result in acheck_result\\annotation_fail_files.log\n" \
+            test_cmd_color.printYellow("check *.c files successful!\nchecked %d files,%d files failed,%d files ignored\nplease check the result in acheck_result\\annotation_fail_files.log\n\n" \
                   % (Annotation.total_file_num,Annotation.fail_file_num,Annotation.ignore_file_num))
     elif (flag == 3):
             print("-------------------------------"
@@ -381,16 +373,17 @@ def process_check_file(flag = 1):
                   "check *.h files-------------------------------------------------\n",file = log_f)
             check_file(h_file_list,ignore_file_list,cmd)
 
-            # output the ignore file list
-            print("\n" + "-" * 56 + "ignore files list" + "-" * 56, file=fail_f)
-            for line in Annotation.ignore_file_list:
-                print(line, file=fail_f)
-                
-                
-            print("check *.h files successful!\nchecked %d files,%d files failed,%d files ignored\nplease check the result in check_result\\annotation_fail_files.log\n" \
+            test_cmd_color.printYellow("check *.h files successful!\nchecked %d files,%d files failed,%d files ignored\nplease check the result in check_result\\annotation_fail_files.log\n\n" \
                   % (Annotation.total_file_num,Annotation.fail_file_num,Annotation.ignore_file_num))
     else:
         pass
+
+    # always output the ignore file list
+    print("\n" + "-" * 50 + "ignore files list" + "-" * 50, file=fail_f)
+    for line in Annotation.ignore_file_list:
+        print(line, file=fail_f)
+     
+    #always 输出统计结果到log文件中
     print("\n\n--check file completed: check %d files  ,%d files failed,%d files ignored------------------\n\n" % (Annotation.total_file_num,Annotation.fail_file_num,Annotation.ignore_file_num),file = w_f)
     print("\n\n--check file completed: check %d files  ,%d files failed,%d files ignored \
     ------------------\n\n" % (Annotation.total_file_num, Annotation.fail_file_num,\
