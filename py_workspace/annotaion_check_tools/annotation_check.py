@@ -354,9 +354,10 @@ def process_check_file(flag = 1):
             
             
             check_file(c_file_list,ignore_file_list,cmd)
-
-            test_cmd_color.printYellow("check all files successful!\nchecked %d files,%d files failed,%d files ignored\nplease check the result in check_result\\annotation_fail_files.log\n\n"
-                  % (Annotation.total_file_num,Annotation.fail_file_num,Annotation.ignore_file_num))
+            
+            test_cmd_color.printGreen("CommentRate Threshold = %.2f%%,Checked all the files successful!\n" % cmd.rate)
+            
+           
     elif (flag == 2):
             print("-------------------------------"
                   "check *.c files-------------------------------------------------\n",file = w_f)
@@ -365,19 +366,28 @@ def process_check_file(flag = 1):
 
             check_file(c_file_list,ignore_file_list,cmd)
 
-            test_cmd_color.printYellow("check *.c files successful!\nchecked %d files,%d files failed,%d files ignored\nplease check the result in acheck_result\\annotation_fail_files.log\n\n" \
-                  % (Annotation.total_file_num,Annotation.fail_file_num,Annotation.ignore_file_num))
+            test_cmd_color.printGreen("CommentRate Threshold = %.2f%%,Checked all *.c files successful!\n" % cmd.rate)
     elif (flag == 3):
             print("-------------------------------"
                   "check *.h files-------------------------------------------------\n",file = w_f)
             print("-------------------------------"
                   "check *.h files-------------------------------------------------\n",file = log_f)
             check_file(h_file_list,ignore_file_list,cmd)
-
-            test_cmd_color.printYellow("check *.h files successful!\nchecked %d files,%d files failed,%d files ignored\nplease check the result in check_result\\annotation_fail_files.log\n\n" \
-                  % (Annotation.total_file_num,Annotation.fail_file_num,Annotation.ignore_file_num))
+            test_cmd_color.printGreen("CommentRate Threshold = %.2f%%,Checked all *.h files successful!\n" % cmd.rate)
+            
     else:
         pass
+    # output check result
+    if (Annotation.fail_file_num > 0):
+        test_cmd_color.printRed("CommentRate Check Failed!Checked %d files,%d files failed,%d files ignored\n"
+                                % (Annotation.total_file_num,Annotation.fail_file_num,Annotation.ignore_file_num))
+    else:
+        test_cmd_color.printGreen("Well Done! Checked %d files,%d files failed,%d files ignored\n" \
+                                  % (Annotation.total_file_num,
+                                     Annotation.fail_file_num,
+                                     Annotation.ignore_file_num))
+
+    test_cmd_color.printGreen("Please check the result in check_result\\annotation_fail_files.log\n\n")
 
     # always output the ignore file list
     print("\n" + "-" * 50 + "ignore files list" + "-" * 50, file=fail_f)

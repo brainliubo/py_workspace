@@ -33,12 +33,27 @@ F:\git_repository\py_workspace\annotaion_check_tools\__pycache__
 ['test_cmd_color.cpython-36.pyc']
 filename with full path:F:\git_repository\py_workspace\annotaion_check_tools\__pycache__\test_cmd_color.cpython-36.pyc
 F:\git_repository\py_workspace\exe
-['lib']
-['annotation_check.exe', 'python36.dll']
+['check_config', 'check_result', 'lib']
+['annotation_check.exe', 'check_file_dir.log', 'python36.dll']
+parent folder is:F:\git_repository\py_workspace\exe
+dirname is:check_config
+parent folder is:F:\git_repository\py_workspace\exe
+dirname is:check_result
 parent folder is:F:\git_repository\py_workspace\exe
 dirname is:lib
 filename with full path:F:\git_repository\py_workspace\exe\annotation_check.exe
+filename with full path:F:\git_repository\py_workspace\exe\check_file_dir.log
 filename with full path:F:\git_repository\py_workspace\exe\python36.dll
+F:\git_repository\py_workspace\exe\check_config
+[]
+['ignore_file_list.log']
+filename with full path:F:\git_repository\py_workspace\exe\check_config\ignore_file_list.log
+F:\git_repository\py_workspace\exe\check_result
+[]
+['annotation_check_logs.log', 'annotation_check_results.log', 'annotation_fail_files.log']
+filename with full path:F:\git_repository\py_workspace\exe\check_result\annotation_check_logs.log
+filename with full path:F:\git_repository\py_workspace\exe\check_result\annotation_check_results.log
+filename with full path:F:\git_repository\py_workspace\exe\check_result\annotation_fail_files.log
 F:\git_repository\py_workspace\exe\lib
 ['collections', 'ctypes', 'email', 'encodings', 'html', 'http', 'importlib', 'logging', 'pydoc_data', 'unittest', 'urllib', 'xml']
 ['library.zip', 'pyexpat.pyd', 'select.pyd', 'unicodedata.pyd', '_bz2.pyd', '_ctypes.pyd', '_hashlib.pyd', '_lzma.pyd', '_socket.pyd', '_ssl.pyd']
