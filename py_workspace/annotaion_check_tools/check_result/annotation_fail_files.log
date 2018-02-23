@@ -2,11 +2,20 @@
 ---------------------------------------------unqualified files list-------------------------------------------------- 
 注：若文件头部注释区域无author定义，owner 显示为文件名
 
-            Owner                        FileName                     TotalLines          BlankLines         CommentLines         CommentRate
+             Owner         FileName  TotalLineNum  BlankLineNum  ComentLineNum  ComentRate(%)
+0     Fm1f_fun_l.c     Fm1f_fun_l.c          2665           326             47          2.009
+1   brain.liu0@pea   Fm1f_fun_tds.c          1028           112             25          2.729
+2       brain.liu1     Fm1f_fun_w.c          2010           185             16          0.877
+3       brain.liu2  Fm1f_fun_wifi.c          1917           269             34          2.063
+4     Fm1f_var_l.c     Fm1f_var_l.c          4830            22             19          0.395
+5     Fm1f_var_w.c     Fm1f_var_w.c          1263            20              1          0.080
+6  Fm1f_var_wifi.c  Fm1f_var_wifi.c          4453            27             18          0.407
+7      Tm1f_proc.c      Tm1f_proc.c           378            62             14          4.430
 
 --------------------------------------------------ignore files list--------------------------------------------------
+F:\git_repository\py_workspace\teset\src\Fm1f_var_tds.c
 
 
---check file completed: check 0 files  ,0 files failed,0 files ignored     ------------------
+--check file completed: check 9 files  ,8 files failed,1 files ignored     ------------------
 
 

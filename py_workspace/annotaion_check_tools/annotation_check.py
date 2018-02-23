@@ -4,13 +4,20 @@ from cmd import Cmd
 import sys
 import os
 import test_cmd_color
+import pandas as pd
+
+#pandas.DataFrame 输出显示控制，防止自动换行
+pd.set_option('display.height',1000)
+pd.set_option('display.max_rows',500)
+pd.set_option('display.max_columns',500)
+pd.set_option('display.width',1000)
 
 
 class CmdTest(Cmd):
     intro = '''
 @brief：本exe主要功能为检测c文件和h头文件的注释率，输出不满足30%注释率的文件
 @author: brain.liu-刘波
-@version:V1.0.1_20180131
+@version:V1.1.0_20180220
 @email: brain.liu@spreadtrum.com
 
 @note：
@@ -42,10 +49,7 @@ class CmdTest(Cmd):
                     %self.rate,file=self.fail_f)
             print("---------------------------------------------unqualified files list-------------------------------------------------- ",file = self.fail_f)
             print("注：若文件头部注释区域无author定义，owner 显示为文件名\n", file=self.fail_f)
-            # 格式化输出结果
-            print(" " * 12 + "Owner" + " " * 24 +"FileName" + " " * 21 + "TotalLines" + \
-                  " " * 10 + "BlankLines" + " " * 9 + "CommentLines" + " " * 9 +"CommentRate", \
-                 file=self.fail_f)
+            
         if (line.strip() == ""):
             test_cmd_color.printGreen("the command is empty, will execute the last nonempty command\n\n")
         return Cmd.precmd(self, line)
@@ -74,18 +78,17 @@ class CmdTest(Cmd):
         
     def help_check(self):
         test_cmd_color.printYellow('''check ---------检测文件，有三种命令:
-                            check all: 检查.c文件和.h文件
-                            check c:   只检查.c文件
-                            check h:   只检查.h文件\n\n''')
+                       check all: 检查.c文件和.h文件
+                       check c:   只检查.c文件
+                       check h:   只检查.h文件\n\n''')
     def help_version(self):
         test_cmd_color.printYellow('''@version: 20180220
-@cr_0220: add different color setting for character
-@bugfix_0203: gbk codec can't decode error
-@bugfix_0218: exit command flush the log file because of the precomd command
-@bugfi_0218: input empty command ,execute the last nonempty command
 @cr_0205: print check result on cmd window
-@cr_0218: add ignore_file_list process\n
-
+@cr_0218: add ignore_file_list process,ignore the files according to the configure
+@cr_0218: input empty command ,execute the last nonempty command
+@cr_0220: add different color setting for output result
+@bugfix_0203: gbk codec can't decode utf-8 encoding byte,using utf-8 decoding method
+@bugfix_0218: exit command flush the log file  and clear the file when input exit command\n
 ''')
         
     def do_check(self, line):
@@ -129,7 +132,7 @@ class CmdTest(Cmd):
         test_cmd_color.printYellow("exit--------输入exit退出程序\n\n")
     
     def do_exit(self, line):  # 以do_*开头为命令
-        test_cmd_color.printYellow("Exit:", line)
+        test_cmd_color.printYellow("Exit\n")
         sys.exit()
         
 
@@ -284,13 +287,18 @@ def file_annotation_cal(file,cmd):
         
         return(Annotation(file_owner,file_name_only,file,total_line_num,blank_line_num,single_line_num,multi_line_num,(rate),single_line_record_list,multi_line_record_dict,blank_line_record_list))
         
-        
-        
-def check_file(file_list,ignore_file_list,cmd):
+
+
+
+
+def check_file(file_list,ignore_file_list,cmd,*info_list):
     w_f = cmd.w_f
     log_f = cmd.log_f
     fail_f = cmd.fail_f
     path_list = []
+    
+   
+    
     for file in file_list: #file 是绝对路径
         Annotation.total_file_num += 1
         path_list = file.split("\\") #path_list[-1]表示的是文件名
@@ -311,25 +319,18 @@ def check_file(file_list,ignore_file_list,cmd):
             # output fail file 
             if (anno_var.annotation_rate < cmd.rate):
                 Annotation.fail_file_num += 1 #失败文件计数
-                #这里的15/20 要跟上述的"owner,filename,totallines"的间隔匹配
-                space_num0 = int(15 - len(anno_var.file_owner)//2)
-                space_num1 = int(30 - (len(anno_var.file_owner) + len(anno_var.file_name))//2)
-                space_num2 = int(30 - (len(anno_var.file_name) + len(anno_var.total_line_num.__str__()))//2)
-                space_num3 = int(20 - (len(str(anno_var.total_line_num)) + len(str(anno_var.blank_line_num)))//2)
-                space_num4 = int(20 -  (len(anno_var.blank_line_num.__str__()) + \
-                                len((anno_var.total_commment).__str__()))//2)
-                #annotation_rate's length fixed to 4 for simplify
-                space_num5 = int(20 - (len((anno_var.total_commment).__str__()) \
-                                       + len(str(anno_var.annotation_rate)))//2)
-                                 
-                print(" "*space_num0 + anno_var.file_owner+" " * space_num1 + anno_var.file_name+\
-                      " "* space_num2+ str(anno_var.total_line_num) +" "* space_num3 + \
-                      str(anno_var.blank_line_num)+" "*space_num4+
-                      str(anno_var.total_commment)+" "* space_num5 + str(anno_var.annotation_rate)+"%",\
-                      file = fail_f)
+                #使用pandas 进行输出，先将每个文件的结果存放在List 中
+                info_list[0].append(anno_var.file_owner)
+                info_list[1].append(anno_var.file_name)
+                info_list[2].append(anno_var.total_line_num)
+                info_list[3].append(anno_var.blank_line_num)
+                info_list[4].append(anno_var.total_commment)
+                info_list[5].append(anno_var.annotation_rate)
         else: #ignore file
             Annotation.ignore_file_num += 1
             Annotation.ignore_file_list.append(file)
+        # 形成DataFrame
+        
     
 
 # step4: 遍历所有.c和.h文件，输出不合格的文件路径到指定文件中。
@@ -341,19 +342,41 @@ def process_check_file(flag = 1):
     Annotation.fail_file_num = 0
     Annotation.ignore_file_num = 0
     Annotation.ignore_file_list = [] #每次执行都要清空
+
+    # 空list 用于记录失败文件的信息，后续用于形成dataFrame
+    owner_list = []
+    filename_list = []
+    totallines_list = []
+    blanklines_list = []
+    commentlines_list = []
+    commentrate_list = []
+    fail_df = pd.DataFrame()#空dataframe
+    
     if(flag == 1):
             print("-------------------------------check *.h files-------------------------------------------------\n",file = w_f)
             print("-------------------------------check *.h files-------------------------------------------------\n",file = log_f)
         
-            check_file(h_file_list,ignore_file_list,cmd)
+            check_file(h_file_list,ignore_file_list,cmd,owner_list,filename_list,totallines_list, \
+                       blanklines_list,commentlines_list,commentrate_list)
 
             print("-------------------------------\
             check *.c files-------------------------------------------------\n",file = w_f)
             print("-------------------------------\
             check *.c files-------------------------------------------------\n",file = log_f)
             
-            
-            check_file(c_file_list,ignore_file_list,cmd)
+            check_file(c_file_list,ignore_file_list,cmd,owner_list,filename_list,totallines_list, \
+                       blanklines_list,commentlines_list,commentrate_list)
+            #输出fail 文件列表到fail_log
+            fail_df["Owner"] = owner_list
+            fail_df["FileName"] = filename_list
+            fail_df["TotalLineNum"] = totallines_list
+            fail_df["BlankLineNum"] = blanklines_list
+            fail_df["ComentLineNum"] = commentlines_list
+            fail_df["ComentRate(%)"] = commentrate_list
+            if (fail_df.empty):
+                print("Well Done, there is no files failed\n", file=fail_f)
+            else:
+                print(fail_df, file=fail_f)
             
             test_cmd_color.printGreen("CommentRate Threshold = %.2f%%,Checked all the files successful!\n" % cmd.rate)
             
@@ -364,15 +387,41 @@ def process_check_file(flag = 1):
             print("-------------------------------"
                   "check *.c files-------------------------------------------------\n",file = log_f)
 
-            check_file(c_file_list,ignore_file_list,cmd)
+            check_file(c_file_list,ignore_file_list,cmd,owner_list,filename_list,totallines_list, \
+                       blanklines_list,commentlines_list,commentrate_list)
 
+            # 输出fail 文件列表到fail_log
+            fail_df["Owner"] = owner_list
+            fail_df["FileName"] = filename_list
+            fail_df["TotalLineNum"] = totallines_list
+            fail_df["BlankLineNum"] = blanklines_list
+            fail_df["ComentLineNum"] = commentlines_list
+            fail_df["ComentRate(%)"] = commentrate_list
+            if (fail_df.empty):
+                print("Well Done, there is no file failed\n", file=fail_f)
+            else:
+                print(fail_df, file=fail_f)
+            
             test_cmd_color.printGreen("CommentRate Threshold = %.2f%%,Checked all *.c files successful!\n" % cmd.rate)
     elif (flag == 3):
             print("-------------------------------"
                   "check *.h files-------------------------------------------------\n",file = w_f)
             print("-------------------------------"
                   "check *.h files-------------------------------------------------\n",file = log_f)
-            check_file(h_file_list,ignore_file_list,cmd)
+            check_file(h_file_list,ignore_file_list,cmd,owner_list,filename_list,totallines_list, \
+                       blanklines_list,commentlines_list,commentrate_list)
+            # 输出fail 文件列表到fail_log
+            fail_df["Owner"] = owner_list
+            fail_df["FileName"] = filename_list
+            fail_df["TotalLineNum"] = totallines_list
+            fail_df["BlankLineNum"] = blanklines_list
+            fail_df["ComentLineNum"] = commentlines_list
+            fail_df["ComentRate(%)"] = commentrate_list
+            if(fail_df.empty):
+                print("Well Done, there is no file failed\n",file = fail_f)
+            else:
+                print(fail_df, file=fail_f)
+            
             test_cmd_color.printGreen("CommentRate Threshold = %.2f%%,Checked all *.h files successful!\n" % cmd.rate)
             
     else:
