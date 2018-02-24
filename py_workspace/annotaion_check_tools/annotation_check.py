@@ -4,14 +4,15 @@ from cmd import Cmd
 import sys
 import os
 import test_cmd_color
-import pandas as pd
+
 
 #pandas.DataFrame 输出显示控制，防止自动换行
+'''
 pd.set_option('display.height',1000)
 pd.set_option('display.max_rows',500)
 pd.set_option('display.max_columns',500)
 pd.set_option('display.width',1000)
-
+'''
 
 class CmdTest(Cmd):
     intro = '''
@@ -331,7 +332,21 @@ def check_file(file_list,ignore_file_list,cmd,*info_list):
             Annotation.ignore_file_list.append(file)
         # 形成DataFrame
         
-    
+def formatwrite_tofile(cmd,*info_list):
+    fail_f = cmd.fail_f
+    owner_max = max(len(item) for item in info_list[0])+5
+    filaname_max = max(len(item) for item in info_list[1])+5
+    total_max = max(len(str(item)) for item in info_list[2])+5
+    blank_max = max(len(str(item)) for item in info_list[3])+5
+    comment_max = max(len(str(item)) for item in info_list[4])+5
+    rate_max = max(len(str(item)) for item in info_list[5])+5
+    ziped = (zip(info_list[0],info_list[1],info_list[2],info_list[3],info_list[4],info_list[5]))
+    for item in ziped:
+       print("%s%s%s%s%s%s" % (item[0].rjust(owner_max),item[1].rjust(filaname_max),str(item[2]).rjust(total_max),\
+                         str(item[3]).rjust(blank_max), str(item[4]).rjust(comment_max), str(item[5]).rjust(rate_max)),file=fail_f)
+
+
+
 
 # step4: 遍历所有.c和.h文件，输出不合格的文件路径到指定文件中。
 def process_check_file(flag = 1):
@@ -344,13 +359,13 @@ def process_check_file(flag = 1):
     Annotation.ignore_file_list = [] #每次执行都要清空
 
     # 空list 用于记录失败文件的信息，后续用于形成dataFrame
-    owner_list = []
-    filename_list = []
-    totallines_list = []
-    blanklines_list = []
-    commentlines_list = []
-    commentrate_list = []
-    fail_df = pd.DataFrame()#空dataframe
+    owner_list = ["Owner"]
+    filename_list = ["FileName"]
+    totallines_list = ["TotalLineNum"]
+    blanklines_list = ["BlankLineNum"]
+    commentlines_list = ["CommentLineNum"]
+    commentrate_list = ["CommentRate(%)"]
+    
     
     if(flag == 1):
             print("-------------------------------check *.h files-------------------------------------------------\n",file = w_f)
@@ -366,18 +381,9 @@ def process_check_file(flag = 1):
             
             check_file(c_file_list,ignore_file_list,cmd,owner_list,filename_list,totallines_list, \
                        blanklines_list,commentlines_list,commentrate_list)
-            #输出fail 文件列表到fail_log
-            fail_df["Owner"] = owner_list
-            fail_df["FileName"] = filename_list
-            fail_df["TotalLineNum"] = totallines_list
-            fail_df["BlankLineNum"] = blanklines_list
-            fail_df["ComentLineNum"] = commentlines_list
-            fail_df["ComentRate(%)"] = commentrate_list
-            if (fail_df.empty):
-                print("Well Done, there is no files failed\n", file=fail_f)
-            else:
-                print(fail_df, file=fail_f)
-            
+            formatwrite_tofile(cmd,owner_list,filename_list,totallines_list, \
+                       blanklines_list,commentlines_list,commentrate_list)
+
             test_cmd_color.printGreen("CommentRate Threshold = %.2f%%,Checked all the files successful!\n" % cmd.rate)
             
            
@@ -390,17 +396,8 @@ def process_check_file(flag = 1):
             check_file(c_file_list,ignore_file_list,cmd,owner_list,filename_list,totallines_list, \
                        blanklines_list,commentlines_list,commentrate_list)
 
-            # 输出fail 文件列表到fail_log
-            fail_df["Owner"] = owner_list
-            fail_df["FileName"] = filename_list
-            fail_df["TotalLineNum"] = totallines_list
-            fail_df["BlankLineNum"] = blanklines_list
-            fail_df["ComentLineNum"] = commentlines_list
-            fail_df["ComentRate(%)"] = commentrate_list
-            if (fail_df.empty):
-                print("Well Done, there is no file failed\n", file=fail_f)
-            else:
-                print(fail_df, file=fail_f)
+            formatwrite_tofile(cmd, owner_list, filename_list, totallines_list, \
+                               blanklines_list, commentlines_list, commentrate_list)
             
             test_cmd_color.printGreen("CommentRate Threshold = %.2f%%,Checked all *.c files successful!\n" % cmd.rate)
     elif (flag == 3):
@@ -410,18 +407,10 @@ def process_check_file(flag = 1):
                   "check *.h files-------------------------------------------------\n",file = log_f)
             check_file(h_file_list,ignore_file_list,cmd,owner_list,filename_list,totallines_list, \
                        blanklines_list,commentlines_list,commentrate_list)
-            # 输出fail 文件列表到fail_log
-            fail_df["Owner"] = owner_list
-            fail_df["FileName"] = filename_list
-            fail_df["TotalLineNum"] = totallines_list
-            fail_df["BlankLineNum"] = blanklines_list
-            fail_df["ComentLineNum"] = commentlines_list
-            fail_df["ComentRate(%)"] = commentrate_list
-            if(fail_df.empty):
-                print("Well Done, there is no file failed\n",file = fail_f)
-            else:
-                print(fail_df, file=fail_f)
-            
+
+            formatwrite_tofile(cmd, owner_list, filename_list, totallines_list, \
+                               blanklines_list, commentlines_list, commentrate_list)
+
             test_cmd_color.printGreen("CommentRate Threshold = %.2f%%,Checked all *.h files successful!\n" % cmd.rate)
             
     else:
