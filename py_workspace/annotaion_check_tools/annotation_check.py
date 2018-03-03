@@ -31,10 +31,10 @@ class CmdTest(Cmd):
     def __init__(self):  # 初始基础类方法
         Cmd.__init__(self)
         self.start = 0
-        self.rate = 30 #注释率门限，以百分比为单位
+        self.rate = 30#注释率门限，以百分比为单位
 
     def help_version(self):
-        test_cmd_color.printYellow('''@version: 20180220_dev0226
+        test_cmd_color.printYellow('''@version: 20180220_dev0303
 @cr_0205: print check result on cmd window
 @cr_0218: add ignore_file_list process,ignore the files according to the configure
 @cr_0218: input empty command ,execute the last nonempty command
@@ -305,13 +305,16 @@ def check_file(file_list,ignore_file_list,cmd,*info_list):
         if path_list[-1] not in ignore_file_list:
             anno_var = file_annotation_cal(file,cmd)
             
-        
-            print(anno_var.file_name_abspath, "annotation_rate：%.2f%%" % anno_var.annotation_rate, file=w_f)
-            print("total_line_num:%d" % anno_var.total_line_num, file=w_f)
-            print("blank_line_num:%d" % anno_var.blank_line_num, file=w_f)
-            print("single_line_comment_num:%d" % anno_var.single_line_comment, file=w_f)
-            print("multi_line_comment_num:%d" % anno_var.multi_line_comment, file=w_f)
-        
+          
+            
+            #output w_log
+            info_list[6].append(anno_var.file_owner)
+            info_list[7].append(anno_var.file_name)
+            info_list[8].append(anno_var.total_line_num)
+            info_list[9].append(anno_var.blank_line_num)
+            info_list[10].append(anno_var.total_commment)
+            info_list[11].append(anno_var.annotation_rate)
+            
             # output log
             print(anno_var.file_name_abspath, file=log_f)
             print(anno_var.logs, file=log_f)
@@ -331,8 +334,8 @@ def check_file(file_list,ignore_file_list,cmd,*info_list):
             Annotation.ignore_file_list.append(file)
         # 形成DataFrame
         
-def formatwrite_tofile(cmd,*info_list):
-    fail_f = cmd.fail_f
+def formatwrite_tofile(file_f,*info_list):
+    
     owner_max = max(len(item) for item in info_list[0])+5
     filaname_max = max(len(item) for item in info_list[1])+5
     total_max = max(len(str(item)) for item in info_list[2])+5
@@ -342,7 +345,7 @@ def formatwrite_tofile(cmd,*info_list):
     ziped = (zip(info_list[0],info_list[1],info_list[2],info_list[3],info_list[4],info_list[5]))
     for item in ziped:
        print("%s%s%s%s%s%s" % (item[0].rjust(owner_max),item[1].rjust(filaname_max),str(item[2]).rjust(total_max),\
-                         str(item[3]).rjust(blank_max), str(item[4]).rjust(comment_max), str(item[5]).rjust(rate_max)),file=fail_f)
+                         str(item[3]).rjust(blank_max), str(item[4]).rjust(comment_max), str(item[5]).rjust(rate_max)),file=file_f)
 
 
 
@@ -364,53 +367,76 @@ def process_check_file(flag = 1):
     blanklines_list = ["BlankLineNum"]
     commentlines_list = ["CommentLineNum"]
     commentrate_list = ["CommentRate(%)"]
-    #fail_df = pd.DataFrame()#空dataframe
+    
+    #####
+    owner_list_all = ["Owner"]
+    filename_list_all = ["FileName"]
+    totallines_list_all = ["TotalLineNum"]
+    blanklines_list_all = ["BlankLineNum"]
+    commentlines_list_all = ["CommentLineNum"]
+    commentrate_list_all = ["CommentRate(%)"]
+   
+   
     
     if(flag == 1):
-            print("-------------------------------check *.h files-------------------------------------------------\n",file = w_f)
-            print("-------------------------------check *.h files-------------------------------------------------\n",file = log_f)
-        
-            check_file(h_file_list,ignore_file_list,cmd,owner_list,filename_list,totallines_list, \
-                       blanklines_list,commentlines_list,commentrate_list)
+        check_file(h_file_list,ignore_file_list,cmd,\
+                       owner_list,filename_list,totallines_list, \
+                       blanklines_list,commentlines_list,commentrate_list, \
+                       owner_list_all, filename_list_all, totallines_list_all, \
+                       blanklines_list_all, commentlines_list_all, commentrate_list_all
+                       )
 
-            print("-------------------------------\
-            check *.c files-------------------------------------------------\n",file = w_f)
-            print("-------------------------------\
-            check *.c files-------------------------------------------------\n",file = log_f)
             
-            check_file(c_file_list,ignore_file_list,cmd,owner_list,filename_list,totallines_list, \
-                       blanklines_list,commentlines_list,commentrate_list)
-            formatwrite_tofile(cmd,owner_list,filename_list,totallines_list, \
+        check_file(c_file_list,ignore_file_list,cmd,\
+                       owner_list, filename_list, totallines_list, \
+                       blanklines_list, commentlines_list, commentrate_list, \
+                       owner_list_all, filename_list_all, totallines_list_all, \
+                       blanklines_list_all, commentlines_list_all, commentrate_list_all
+                       )
+        formatwrite_tofile(cmd.w_f, owner_list_all, filename_list_all, \
+                               totallines_list_all, blanklines_list_all,\
+                               commentlines_list_all, commentrate_list_all)
+            
+        formatwrite_tofile(cmd.fail_f,owner_list,filename_list,totallines_list, \
                        blanklines_list,commentlines_list,commentrate_list)
 
-            test_cmd_color.printGreen("CommentRate Threshold = %.2f%%,Checked all the files successful!\n" % cmd.rate)
+        test_cmd_color.printGreen("CommentRate Threshold = %.2f%%,Checked all the files successful!\n" % cmd.rate)
             
            
     elif (flag == 2):
-            print("-------------------------------"
-                  "check *.c files-------------------------------------------------\n",file = w_f)
-            print("-------------------------------"
-                  "check *.c files-------------------------------------------------\n",file = log_f)
+        check_file(c_file_list, ignore_file_list, cmd, \
+                   owner_list, filename_list, totallines_list, \
+                   blanklines_list, commentlines_list, commentrate_list, \
+                   owner_list_all, filename_list_all, totallines_list_all, \
+                   blanklines_list_all, commentlines_list_all, commentrate_list_all
+                   )
 
-            check_file(c_file_list,ignore_file_list,cmd,owner_list,filename_list,totallines_list, \
-                       blanklines_list,commentlines_list,commentrate_list)
-
-            formatwrite_tofile(cmd, owner_list, filename_list, totallines_list, \
-                               blanklines_list, commentlines_list, commentrate_list)
+        formatwrite_tofile(cmd.w_f, owner_list_all, filename_list_all, \
+                               totallines_list_all, blanklines_list_all, \
+                               commentlines_list_all, commentrate_list_all)
             
-            test_cmd_color.printGreen("CommentRate Threshold = %.2f%%,Checked all *.c files successful!\n" % cmd.rate)
+        formatwrite_tofile(cmd.fail_f, owner_list, filename_list, \
+                               totallines_list,blanklines_list, \
+                               commentlines_list, commentrate_list)
+            
+        test_cmd_color.printGreen("CommentRate Threshold = %.2f%%,Checked all *.c files successful!\n" % cmd.rate)
     elif (flag == 3):
-            print("-------------------------------"
-                  "check *.h files-------------------------------------------------\n",file = w_f)
-            print("-------------------------------"
-                  "check *.h files-------------------------------------------------\n",file = log_f)
-            check_file(h_file_list,ignore_file_list,cmd,owner_list,filename_list,totallines_list, \
-                       blanklines_list,commentlines_list,commentrate_list)
+        check_file(h_file_list, ignore_file_list, cmd, \
+           owner_list, filename_list, totallines_list, \
+           blanklines_list, commentlines_list, commentrate_list, \
+           owner_list_all, filename_list_all, totallines_list_all, \
+           blanklines_list_all, commentlines_list_all, commentrate_list_all
+           )
+            
+        formatwrite_tofile(cmd.w_f, owner_list_all, filename_list_all, \
+                               totallines_list_all, blanklines_list_all, \
+                               commentlines_list_all, commentrate_list_all)
+            
+        formatwrite_tofile(cmd.fail_f, owner_list, filename_list, \
+                               totallines_list, blanklines_list, \
+                               commentlines_list, commentrate_list)
 
-            formatwrite_tofile(cmd, owner_list, filename_list, totallines_list, \
-                               blanklines_list, commentlines_list, commentrate_list)
-
-            test_cmd_color.printGreen("CommentRate Threshold = %.2f%%,Checked all *.h files successful!\n" % cmd.rate)
+        test_cmd_color.printGreen("CommentRate Threshold = %.2f%%,Checked all *.h files successful!\n" % cmd.rate)
             
     else:
         pass
