@@ -19,13 +19,11 @@ class CmdTest(Cmd):
 @brief：本exe主要功能为检测c文件和h头文件的注释率，输出不满足30%注释率的文件
 @author: brain.liu-刘波
 @version:V1.1.0_20180220
-@email: brain.liu@spreadtrum.com
-
 @note：
-1）本exe只检查满足doxygen 注释规范的注释，不满足规范的注释将被认为是无效注释，不计算在注释率内
-2）doxygen注释规范请参考《编码风格精简版与全局头文件V0.3》,输入命令:"help doxygen" 了解详细风格
-3）注释率 = 注释行数/(总行数 - 空行数),为提高注释率，请删除无效代码，增加注释
-4）默认的注释率门限为30%，低于门限的文件将被输出到“annotation_fail_files.log”
+1）本exe只检查满足doxygen 注释规范的注释，不满足规范的注释将不视为注释
+2）注释率 = 注释行数/(总行数 - 空行数),注释率检查门限默认设置为30%
+3）doxygen注释规范参考《编码风格精简版与全局头文件V0.3》,输入命令:"help doxygen" 了解详情
+4）输入命令"check all" ,"check c", "check h", 分别检查 所有文件/*.c文件/*.h文件
 5）若遇到错误和问题，欢迎反馈到brain.liu@spreadtrum.com
 
             '''
@@ -34,7 +32,16 @@ class CmdTest(Cmd):
         Cmd.__init__(self)
         self.start = 0
         self.rate = 30 #注释率门限，以百分比为单位
-        
+
+    def help_version(self):
+        test_cmd_color.printYellow('''@version: 20180220_dev0226
+@cr_0205: print check result on cmd window
+@cr_0218: add ignore_file_list process,ignore the files according to the configure
+@cr_0218: input empty command ,execute the last nonempty command
+@cr_0220: add different color setting for output result
+@bugfix_0203: gbk codec can't decode utf-8 encoding byte,using utf-8 decoding method
+@bugfix_0218: exit command flush the log file  and clear the file when input exit command\n
+''')
     
     def precmd(self,line):
         current_dir = os.getcwd()  # 获取check_tool的目录
@@ -46,7 +53,7 @@ class CmdTest(Cmd):
             self.w_f = open(result_dir + "annotation_check_results.log", "w")
             self.fail_f = open(result_dir +"annotation_fail_files.log", "w")
             self.ignore_f =  open(config_dir + "ignore_file_list.log", "r")
-            print(" "*15 +"annotation rate threshold:%.2f%%,belowing files are the unqualified files" \
+            print(" "*15 +"annotation rate threshold:%.2f%%,the following files are the unqualified files" \
                     %self.rate,file=self.fail_f)
             print("---------------------------------------------unqualified files list-------------------------------------------------- ",file = self.fail_f)
             print("注：若文件头部注释区域无author定义，owner 显示为文件名\n", file=self.fail_f)
@@ -82,15 +89,7 @@ class CmdTest(Cmd):
                        check all: 检查.c文件和.h文件
                        check c:   只检查.c文件
                        check h:   只检查.h文件\n\n''')
-    def help_version(self):
-        test_cmd_color.printYellow('''@version: 20180220
-@cr_0205: print check result on cmd window
-@cr_0218: add ignore_file_list process,ignore the files according to the configure
-@cr_0218: input empty command ,execute the last nonempty command
-@cr_0220: add different color setting for output result
-@bugfix_0203: gbk codec can't decode utf-8 encoding byte,using utf-8 decoding method
-@bugfix_0218: exit command flush the log file  and clear the file when input exit command\n
-''')
+
         
     def do_check(self, line):
         "do check file"
@@ -365,7 +364,7 @@ def process_check_file(flag = 1):
     blanklines_list = ["BlankLineNum"]
     commentlines_list = ["CommentLineNum"]
     commentrate_list = ["CommentRate(%)"]
-    
+    #fail_df = pd.DataFrame()#空dataframe
     
     if(flag == 1):
             print("-------------------------------check *.h files-------------------------------------------------\n",file = w_f)

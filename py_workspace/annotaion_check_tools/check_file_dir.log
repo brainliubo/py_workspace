@@ -6,8 +6,10 @@ dirname is:annotaion_check_tools
 parent folder is:F:\git_repository\py_workspace
 dirname is:teset
 F:\git_repository\py_workspace\annotaion_check_tools
-['check_config', 'check_result', '__pycache__']
+['.idea', 'check_config', 'check_result', '__pycache__']
 ['annotation_check.py', 'bug.txt', 'check_file_dir.log', 'test_cmd_color.py']
+parent folder is:F:\git_repository\py_workspace\annotaion_check_tools
+dirname is:.idea
 parent folder is:F:\git_repository\py_workspace\annotaion_check_tools
 dirname is:check_config
 parent folder is:F:\git_repository\py_workspace\annotaion_check_tools
@@ -18,6 +20,17 @@ filename with full path:F:\git_repository\py_workspace\annotaion_check_tools\ann
 filename with full path:F:\git_repository\py_workspace\annotaion_check_tools\bug.txt
 filename with full path:F:\git_repository\py_workspace\annotaion_check_tools\check_file_dir.log
 filename with full path:F:\git_repository\py_workspace\annotaion_check_tools\test_cmd_color.py
+F:\git_repository\py_workspace\annotaion_check_tools\.idea
+['inspectionProfiles']
+['annotaion_check_tools.iml', 'modules.xml', 'workspace.xml']
+parent folder is:F:\git_repository\py_workspace\annotaion_check_tools\.idea
+dirname is:inspectionProfiles
+filename with full path:F:\git_repository\py_workspace\annotaion_check_tools\.idea\annotaion_check_tools.iml
+filename with full path:F:\git_repository\py_workspace\annotaion_check_tools\.idea\modules.xml
+filename with full path:F:\git_repository\py_workspace\annotaion_check_tools\.idea\workspace.xml
+F:\git_repository\py_workspace\annotaion_check_tools\.idea\inspectionProfiles
+[]
+[]
 F:\git_repository\py_workspace\annotaion_check_tools\check_config
 []
 ['ignore_file_list.log']
