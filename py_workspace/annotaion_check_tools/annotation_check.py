@@ -4,6 +4,7 @@ from cmd import Cmd
 import sys
 import os
 import test_cmd_color
+from collections import  deque
 
 
 #pandas.DataFrame 输出显示控制，防止自动换行
@@ -18,7 +19,7 @@ class CmdTest(Cmd):
     intro = '''
 @brief：本exe主要功能为检测c文件和h头文件的注释率，输出不满足30%注释率的文件
 @author: brain.liu-刘波
-@version:V1.1.0_20180220
+@version:V1.1.0_20180601
 @note：
 1）本exe只检查满足doxygen 注释规范的注释，不满足规范的注释将不视为注释
 2）注释率 = 注释行数/(总行数 - 空行数),注释率检查门限默认设置为30%
@@ -34,7 +35,8 @@ class CmdTest(Cmd):
         self.rate = 30#注释率门限，以百分比为单位
 
     def help_version(self):
-        test_cmd_color.printYellow('''@version: 20180220_dev0303
+        test_cmd_color.printYellow('''@version: 20180601
+@cr_0601: delete the lines in #if0 -#endif region when calculate the commentrate
 @cr_0205: print check result on cmd window
 @cr_0218: add ignore_file_list process,ignore the files according to the configure
 @cr_0218: input empty command ,execute the last nonempty command
@@ -73,18 +75,14 @@ class CmdTest(Cmd):
     
     def help_doxygen(self):
         test_cmd_color.printYellow('''
-    请参考文件夹内的<编码风格精简版与全局头文件V0.3>中注释规范部分。
-    不符合风格的注释将视为无效注释 
-    如下示范为本工具可检查的注释风格中必须要实现的部分：
-    
+    如下风格为本工具可检查的注释风格(不符合风格的注释将视为无效注释)：
                 
-    文件头注释示范:    /** @file..注释....
-                           @author:xxxx     */
+    文件头注释示范:    /** @file..注释....*/
 
     函数头注释示范：   /*!......注释......*/
                          
     单行注释  示范:   /*!<.....注释......*/
-                     //!<.....注释......
+                    //!<.....注释......
                                          
     多行注释  示范:   /*!......注释......*/\n\n''')
         
@@ -151,7 +149,9 @@ class Annotation():
         def __init__(self,file_owner,\
                      file_name,\
                      abspath_file_name,\
-                     total_line,blank_line,\
+                     total_line, \
+                     invalid_line_num,\
+                     blank_line,\
                      single_comment,\
                      multi_comment,\
                      comment_rate,\
@@ -160,6 +160,7 @@ class Annotation():
             self.file_name = file_name #文件名
             self.file_owner = file_owner # add file owner
             self.total_line_num = total_line
+            self.invalid_line_num = invalid_line_num
             self.blank_line_num = blank_line
             self.single_line_comment = single_comment
             self.multi_line_comment = multi_comment
@@ -218,20 +219,43 @@ for in_file in file_list:
         ignore_file_list = ignore_file_find(in_file)
 
 
-
-
+# 检查代码中，使用#if 0注释掉得代码，这部分代码不进行注释率的检查
+def  file_detect_invalid_code(file,preiflist,endiflist,startiflist):
+    line_num = 0
+    ifcontent = deque()
+    try:
+        with open(file, "r", encoding="utf-8", errors="ignore") as file_p:
+            for line in file_p.readlines():
+                line_strip = line.replace(" ","") #line_strip 只是将左右两边的空格去掉了，中间的空格没有去掉
+                line_num += 1
+                if(line_strip.startswith("#if")):
+                    preiflist.append(line_num)  #采用deque 保留最新发现的#if
+                    ifcontent.append(line_strip)  #记录下该行的信息
+                if(line_strip.startswith("#endif")):
+                    endiflist.append([preiflist.pop(),line_num])   #每次找到一个#endif,将最新的#if 配对。
+                    
+                    if (True != ifcontent.pop().startswith("#if0")): #该行对应的不是#if 0
+                        endiflist.pop()
+                       
+                    
+    except Exception as err:
+        print(file, str(err))
+        pass
+    
 
 
 # step3: core function ,找到总行数和空行，以及注释行，给出注释率
 # 处理文件时，要查找该文件的owner, owner 使用@author 进行赋值:
-def file_annotation_cal(file,cmd):
+def file_annotation_cal(file,cmd,endiflist):
     total_line_num = 0
     space_line_num = 0
+    invalid_line_num = 0
     single_line_num = 0
     multi_line_num = 0
     multi_line_start = -1
     multi_line_end = -1
     blank_line_num = 0
+    invalid_line_flag = 0
     blank_line_record_list = []
     single_line_record_list = []
     multi_line_record_dict = {}
@@ -239,38 +263,46 @@ def file_annotation_cal(file,cmd):
     fail_f = cmd.fail_f
     file_owner = file.split("\\")[-1] #[-1]表示的是文件名
     file_name_only = file.split("\\")[-1] #[-1]表示的是文件名
+    
     try:
         with open(file, "r",encoding = "utf-8",errors = "ignore") as file_p:
             for line in file_p.readlines():
+                invalid_line_flag = 0
                 line_strip = line.strip()
                 total_line_num += 1
-                if(len(line_strip) == 0):
-                    blank_line_num += 1
-                    blank_line_record_list.append(total_line_num)
-                if((line_strip.find("//!<") != -1) and (multi_line_start == -1) and (line_strip.find("/*!") == -1)):
-                    single_line_num += 1
-                    single_line_record_list.append(total_line_num)
-                if ((line_strip.find("/*!") != -1)
-                    or (line_strip.find("/** @file") != -1)):
-                    multi_line_start = total_line_num
-                    if (line_strip.endswith("*/")):
+                for invalid_line in endiflist:
+                    if ((total_line_num >= invalid_line[0]) and (total_line_num<=invalid_line[1])):
+                        invalid_line_flag = 1
+                if (0 == invalid_line_flag):
+                    if(len(line_strip) == 0):
+                        blank_line_num += 1
+                        blank_line_record_list.append(total_line_num)
+                    if((line_strip.find("//!<") != -1) and (multi_line_start == -1) and (line_strip.find("/*!") == -1)):
+                        single_line_num += 1
+                        single_line_record_list.append(total_line_num)
+                    if ((line_strip.find("/*!") != -1)
+                        or (line_strip.find("/** @file") != -1)):
+                        multi_line_start = total_line_num
+                        if (line_strip.endswith("*/")):
+                            multi_line_end = total_line_num
+                            multi_line_num += 1
+                            multi_line_record_dict[multi_line_start] = multi_line_end
+                            multi_line_start = -1  #bug fix
+                        else:
+                            pass
+                    if ((line_strip.find("*/") != -1) and (multi_line_start > 0)):
                         multi_line_end = total_line_num
-                        multi_line_num += 1
+                        multi_line_num += multi_line_end - multi_line_start + 1
                         multi_line_record_dict[multi_line_start] = multi_line_end
-                        multi_line_start = -1  #bug fix
-                    else:
-                        pass
-                if ((line_strip.find("*/") != -1) and (multi_line_start > 0)):
-                    multi_line_end = total_line_num
-                    multi_line_num += multi_line_end - multi_line_start + 1
-                    multi_line_record_dict[multi_line_start] = multi_line_end
-                    multi_line_start = -1
-                # 只在第一个多行注释中查找author，其他地方的author 认为无效
-                if ((line_strip.find("@author") != -1) and (len(multi_line_record_dict) == 0)):
-                    # 替换这一行中的空格和:, 防止不同写法
-                    line_find_owner = line_strip.replace(" ","")
-                    line_strip = line_find_owner.replace(":","")
-                    file_owner = line_strip.split("@author")[-1]
+                        multi_line_start = -1
+                    # 只在第一个多行注释中查找author，其他地方的author 认为无效
+                    if ((line_strip.find("@author") != -1) and (len(multi_line_record_dict) == 0)):
+                        # 替换这一行中的空格和:, 防止不同写法
+                        line_find_owner = line_strip.replace(" ","")
+                        line_strip = line_find_owner.replace(":","")
+                        file_owner = line_strip.split("@author")[-1]
+                else:
+                    invalid_line_num += 1
                 
     except Exception as err:
         print(file,str(err),file = log_f)
@@ -278,7 +310,7 @@ def file_annotation_cal(file,cmd):
 
 
     try:    
-        valid_line = total_line_num - blank_line_num
+        valid_line = total_line_num - blank_line_num - invalid_line_num
         anno_line = multi_line_num + single_line_num
         if(valid_line != 0): #防止空文件
             rate = round(100 * (anno_line / valid_line),3) #保留小数位设置
@@ -288,8 +320,10 @@ def file_annotation_cal(file,cmd):
         print(file,str(err),file = log_f)
         print(file,str(err),file = fail_f)
     finally:
-        
-        return(Annotation(file_owner,file_name_only,file,total_line_num,blank_line_num,single_line_num,multi_line_num,(rate),single_line_record_list,multi_line_record_dict,blank_line_record_list))
+        return(Annotation(file_owner,file_name_only,file,total_line_num,invalid_line_num,
+                           blank_line_num,single_line_num,multi_line_num,(rate),
+                          single_line_record_list,multi_line_record_dict,
+                          blank_line_record_list,endiflist))
         
 
 
@@ -300,24 +334,30 @@ def check_file(file_list,ignore_file_list,cmd,*info_list):
     log_f = cmd.log_f
     fail_f = cmd.fail_f
     path_list = []
-    
+    preiflist = deque() #使用deque 记录检测到#if* 的位置
+    endiflist = []
+    startiflist = []
    
     
     for file in file_list: #file 是绝对路径
         Annotation.total_file_num += 1
         path_list = file.split("\\") #path_list[-1]表示的是文件名
+        preiflist = []
+        endiflist = []
         if path_list[-1] not in ignore_file_list:
-            anno_var = file_annotation_cal(file,cmd)
+            file_detect_invalid_code(file,preiflist,endiflist,startiflist)
+            anno_var = file_annotation_cal(file,cmd,endiflist)
             
           
             
             #output w_log
-            info_list[6].append(anno_var.file_owner)
-            info_list[7].append(anno_var.file_name)
-            info_list[8].append(anno_var.total_line_num)
-            info_list[9].append(anno_var.blank_line_num)
-            info_list[10].append(anno_var.total_commment)
-            info_list[11].append(anno_var.annotation_rate)
+            info_list[7].append(anno_var.file_owner)
+            info_list[8].append(anno_var.file_name)
+            info_list[9].append(anno_var.total_line_num)
+            info_list[10].append(anno_var.invalid_line_num)
+            info_list[11].append(anno_var.blank_line_num)
+            info_list[12].append(anno_var.total_commment)
+            info_list[13].append(anno_var.annotation_rate)
             
             # output log
             print(anno_var.file_name_abspath, file=log_f)
@@ -330,9 +370,10 @@ def check_file(file_list,ignore_file_list,cmd,*info_list):
                 info_list[0].append(anno_var.file_owner)
                 info_list[1].append(anno_var.file_name)
                 info_list[2].append(anno_var.total_line_num)
-                info_list[3].append(anno_var.blank_line_num)
-                info_list[4].append(anno_var.total_commment)
-                info_list[5].append(anno_var.annotation_rate)
+                info_list[3].append(anno_var.invalid_line_num)
+                info_list[4].append(anno_var.blank_line_num)
+                info_list[5].append(anno_var.total_commment)
+                info_list[6].append(anno_var.annotation_rate)
         else: #ignore file
             Annotation.ignore_file_num += 1
             Annotation.ignore_file_list.append(file)
@@ -343,13 +384,15 @@ def formatwrite_tofile(file_f,*info_list):
     owner_max = max(len(item) for item in info_list[0])+5
     filaname_max = max(len(item) for item in info_list[1])+5
     total_max = max(len(str(item)) for item in info_list[2])+5
-    blank_max = max(len(str(item)) for item in info_list[3])+5
-    comment_max = max(len(str(item)) for item in info_list[4])+5
-    rate_max = max(len(str(item)) for item in info_list[5])+5
-    ziped = (zip(info_list[0],info_list[1],info_list[2],info_list[3],info_list[4],info_list[5]))
+    invalid_max = max(len(str(item)) for item in info_list[3])+5
+    blank_max = max(len(str(item)) for item in info_list[4])+5
+    comment_max = max(len(str(item)) for item in info_list[5])+5
+    rate_max = max(len(str(item)) for item in info_list[6])+5
+    ziped = (zip(info_list[0],info_list[1],info_list[2],info_list[3],info_list[4],info_list[5],info_list[6]))
     for item in ziped:
-       print("%s%s%s%s%s%s" % (item[0].rjust(owner_max),item[1].rjust(filaname_max),str(item[2]).rjust(total_max),\
-                         str(item[3]).rjust(blank_max), str(item[4]).rjust(comment_max), str(item[5]).rjust(rate_max)),file=file_f)
+       print("%s%s%s%s%s%s%s" % (item[0].rjust(owner_max),item[1].rjust(filaname_max),str(item[2]).rjust(total_max),\
+                         str(item[3]).rjust(invalid_max), str(item[4]).rjust(blank_max),
+                         str(item[5]).rjust(comment_max),str(item[6]).rjust(rate_max)),file=file_f)
 
 
 
@@ -368,6 +411,7 @@ def process_check_file(flag = 1):
     owner_list = ["Owner"]
     filename_list = ["FileName"]
     totallines_list = ["TotalLineNum"]
+    invalidline_list = ["InvalidLineNum"]
     blanklines_list = ["BlankLineNum"]
     commentlines_list = ["CommentLineNum"]
     commentrate_list = ["CommentRate(%)"]
@@ -376,6 +420,7 @@ def process_check_file(flag = 1):
     owner_list_all = ["Owner"]
     filename_list_all = ["FileName"]
     totallines_list_all = ["TotalLineNum"]
+    invalidline_list_all = ["InvalidLineNum"]
     blanklines_list_all = ["BlankLineNum"]
     commentlines_list_all = ["CommentLineNum"]
     commentrate_list_all = ["CommentRate(%)"]
@@ -384,66 +429,64 @@ def process_check_file(flag = 1):
     
     if(flag == 1):
         check_file(h_file_list,ignore_file_list,cmd,\
-                       owner_list,filename_list,totallines_list, \
+                       owner_list,filename_list,totallines_list, invalidline_list,\
                        blanklines_list,commentlines_list,commentrate_list, \
-                       owner_list_all, filename_list_all, totallines_list_all, \
+                       owner_list_all, filename_list_all, totallines_list_all, invalidline_list_all,\
                        blanklines_list_all, commentlines_list_all, commentrate_list_all
                        )
 
             
         check_file(c_file_list,ignore_file_list,cmd,\
-                       owner_list, filename_list, totallines_list, \
+                       owner_list, filename_list, totallines_list, invalidline_list,\
                        blanklines_list, commentlines_list, commentrate_list, \
-                       owner_list_all, filename_list_all, totallines_list_all, \
+                       owner_list_all, filename_list_all, totallines_list_all, invalidline_list_all,\
                        blanklines_list_all, commentlines_list_all, commentrate_list_all
                        )
         formatwrite_tofile(cmd.w_f, owner_list_all, filename_list_all, \
-                               totallines_list_all, blanklines_list_all,\
+                               totallines_list_all,invalidline_list_all, blanklines_list_all,\
                                commentlines_list_all, commentrate_list_all)
             
-        formatwrite_tofile(cmd.fail_f,owner_list,filename_list,totallines_list, \
+        formatwrite_tofile(cmd.fail_f,owner_list,filename_list,totallines_list, invalidline_list,\
                        blanklines_list,commentlines_list,commentrate_list)
 
         test_cmd_color.printGreen("CommentRate Threshold = %.2f%%,Checked all the files successful!\n" % cmd.rate)
             
-           
+    
     elif (flag == 2):
-        check_file(c_file_list, ignore_file_list, cmd, \
-                   owner_list, filename_list, totallines_list, \
-                   blanklines_list, commentlines_list, commentrate_list, \
-                   owner_list_all, filename_list_all, totallines_list_all, \
-                   blanklines_list_all, commentlines_list_all, commentrate_list_all
-                   )
-
-        formatwrite_tofile(cmd.w_f, owner_list_all, filename_list_all, \
-                               totallines_list_all, blanklines_list_all, \
+         check_file(c_file_list,ignore_file_list,cmd,\
+                       owner_list, filename_list, totallines_list, invalidline_list,\
+                       blanklines_list, commentlines_list, commentrate_list, \
+                       owner_list_all, filename_list_all, totallines_list_all, invalidline_list_all,\
+                       blanklines_list_all, commentlines_list_all, commentrate_list_all
+                       )
+         formatwrite_tofile(cmd.w_f, owner_list_all, filename_list_all, \
+                               totallines_list_all,invalidline_list_all, blanklines_list_all,\
                                commentlines_list_all, commentrate_list_all)
             
-        formatwrite_tofile(cmd.fail_f, owner_list, filename_list, \
-                               totallines_list,blanklines_list, \
-                               commentlines_list, commentrate_list)
-            
-        test_cmd_color.printGreen("CommentRate Threshold = %.2f%%,Checked all *.c files successful!\n" % cmd.rate)
+         formatwrite_tofile(cmd.fail_f,owner_list,filename_list,totallines_list, invalidline_list,\
+                       blanklines_list,commentlines_list,commentrate_list)
+                       
+         test_cmd_color.printGreen("CommentRate Threshold = %.2f%%,Checked all *.c files successful!\n" % cmd.rate)
     elif (flag == 3):
-        check_file(h_file_list, ignore_file_list, cmd, \
-           owner_list, filename_list, totallines_list, \
-           blanklines_list, commentlines_list, commentrate_list, \
-           owner_list_all, filename_list_all, totallines_list_all, \
-           blanklines_list_all, commentlines_list_all, commentrate_list_all
-           )
+        check_file(h_file_list,ignore_file_list,cmd,\
+                       owner_list,filename_list,totallines_list, invalidline_list,\
+                       blanklines_list,commentlines_list,commentrate_list, \
+                       owner_list_all, filename_list_all, totallines_list_all, invalidline_list_all,\
+                       blanklines_list_all, commentlines_list_all, commentrate_list_all
+                       )
             
         formatwrite_tofile(cmd.w_f, owner_list_all, filename_list_all, \
-                               totallines_list_all, blanklines_list_all, \
+                               totallines_list_all,invalidline_list_all, blanklines_list_all,\
                                commentlines_list_all, commentrate_list_all)
             
-        formatwrite_tofile(cmd.fail_f, owner_list, filename_list, \
-                               totallines_list, blanklines_list, \
-                               commentlines_list, commentrate_list)
+        formatwrite_tofile(cmd.fail_f,owner_list,filename_list,totallines_list, invalidline_list,\
+                       blanklines_list,commentlines_list,commentrate_list)
 
         test_cmd_color.printGreen("CommentRate Threshold = %.2f%%,Checked all *.h files successful!\n" % cmd.rate)
-            
+    
     else:
         pass
+    
     # output check result
     if (Annotation.fail_file_num > 0):
         test_cmd_color.printRed("CommentRate Check Failed!Checked %d files,%d files failed,%d files ignored\n"
