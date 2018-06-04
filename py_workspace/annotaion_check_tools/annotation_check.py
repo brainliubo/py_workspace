@@ -228,18 +228,15 @@ def  file_detect_invalid_code(file,preiflist,endiflist,startiflist):
             for line in file_p.readlines():
                 line_strip = line.replace(" ","") #line_strip 只是将左右两边的空格去掉了，中间的空格没有去掉
                 line_num += 1
-                if(line_strip.startswith("#if")):
+                if(True == line_strip.startswith("#if")):
                     preiflist.append(line_num)  #采用deque 保留最新发现的#if
                     ifcontent.append(line_strip)  #记录下该行的信息
-                if(line_strip.startswith("#endif")):
+                if(True == line_strip.startswith("#endif") and (-1 == line_strip.find("*/"))):  #防止某些行中有"#endif */" 这种
                     endiflist.append([preiflist.pop(),line_num])   #每次找到一个#endif,将最新的#if 配对。
-                    
                     if (True != ifcontent.pop().startswith("#if0")): #该行对应的不是#if 0
                         endiflist.pop()
-                       
-                    
     except Exception as err:
-        print(file, str(err))
+        print(file, line_num,preiflist,endiflist,str(err))
         pass
     
 
