@@ -231,7 +231,8 @@ def  file_detect_invalid_code(file,preiflist,endiflist,startiflist):
                 if(True == line_strip.startswith("#if")):
                     preiflist.append(line_num)  #采用deque 保留最新发现的#if
                     ifcontent.append(line_strip)  #记录下该行的信息
-                if(True == line_strip.startswith("#endif") and (-1 == line_strip.find("*/"))):  #防止某些行中有"#endif */" 这种
+                if(True == line_strip.startswith("#endif") and (-1 == line_strip.find("*/")) \
+                   and (preiflist.__len__() != 0)):  #防止某些行中有"#endif */" 这种导致无法配对
                     endiflist.append([preiflist.pop(),line_num])   #每次找到一个#endif,将最新的#if 配对。
                     if (True != ifcontent.pop().startswith("#if0")): #该行对应的不是#if 0
                         endiflist.pop()
